@@ -1,37 +1,77 @@
 .jobCardWrapper {
     padding-left: 30px;
     padding-right: 30px;
-    width: 27%;
+    flex-basis: 33.333333333%;
     margin-bottom: 30px;
+    -webkit-box-sizing: border-box; /* key, tar då hänsyn boxens padding m.m */
+    box-sizing: border-box; /* key */
     
+    /*
+    Ett försök att se till att en box inte tar över eller blir mindre vid ensamt tillstånd*/
+    -webkit-box-flex: 0!important;
+    -ms-flex-positive: 0!important;
+    flex-grow: 0!important;
 }
+
+a {
+    text-decoration: none;
+    color: black;
+}
+/*
+.jobCardWrapper::after {
+    -webkit-transition: all .2s cubic-bezier(.175,.885,.32,1.275);
+    transition: all .2s cubic-bezier(.175,.885,.32,1.275);
+}*/
 
 .container {
     /*max-width: 400px;*/
-    height: 240px; /* static */
+    
+    /*height: 240px;  static */
+    position: relative;
     padding-top: 30px;
     padding-left: 20px;
     padding-right: 20px;
     padding-bottom: 60px;
+    height: 60%; /* denna skiljer sig från original 100% */
     
     border-radius: 4px;;
     margin-bottom: 30px;
 
     background-color: white;
 
-    display:flex;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+    text-align: center;
 
     -webkit-box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.75);
     -moz-box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.75);
     box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.75);
+
+    -webkit-transition: all .2s cubic-bezier(.175,.885,.32,1.275);
+    transition: all .2s cubic-bezier(.175,.885,.32,1.275);
 }
 
-.container img {
+.container:hover {
+    transform: translateY(-15px);
+}
+
+.container:hover .fieldImg {
+    opacity: 1;
+}
+
+.container .fieldImg {
     width: 90px;
     height: 90px;
+    opacity: .2;
+    -webkit-transition: all .2s linear;
+    transition: all .2s linear;
 }
 
 .container .role {
@@ -44,6 +84,30 @@
     margin-bottom: 0px;
 }
 
-@media only screen and (max-width: 600px) {
+.container .absoluteThis {
+    position: absolute;
+    background-color: black;
+    width: 60px;
+    height: 50px;
+    bottom: -25px;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
+.container .absoluteThis .arrowImg {
+    width: 24px;
+    height: 24px;
+}
+
+@media only screen and (max-width: 850px) {
+    .jobCardWrapper {
+        padding-left: 30px;
+        padding-right: 30px;
+        flex-basis: 100%;
+        margin-bottom: 30px;
+        -webkit-box-sizing: border-box; /* key */
+        box-sizing: border-box; /* key */
+    }
 }

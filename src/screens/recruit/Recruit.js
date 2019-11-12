@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 import styles from './style.module.css';
 
@@ -7,7 +8,7 @@ import JobOpeningCard from '../../components/jobopeningcard/JobOpeningCard';
 const jobOpenings = [
     {
         id: "1",
-        role: "Senior UI/UX Designer",
+        role: "Senior UI/UX Designer AND TROLOLRORLROL WOFF WOFF WOOF",
         field: "Design", //conditional image beroende på field
         description: "Lots of text",
         requirements: "Lots of dots",
@@ -22,7 +23,7 @@ const jobOpenings = [
         plusPoints: "More dots",
     },
     {
-        id: "1",
+        id: "3",
         role: "Senior UI/UX Designer",
         field: "Design", //conditional image beroende på field
         description: "Lots of text",
@@ -30,7 +31,7 @@ const jobOpenings = [
         plusPoints: "More dots",
     },
     {
-        id: "2",
+        id: "4",
         role: "Frontend Developer",
         field: "Engineer",
         description: "Lots of text",
@@ -38,7 +39,7 @@ const jobOpenings = [
         plusPoints: "More dots",
     },
     {
-        id: "2",
+        id: "5",
         role: "Frontend Developer",
         field: "Engineer",
         description: "Lots of text",
@@ -46,7 +47,15 @@ const jobOpenings = [
         plusPoints: "More dots",
     },
     {
-        id: "2",
+        id: "6",
+        role: "Freeloader",
+        field: "Unknown",
+        description: "Lots of text",
+        requirements: "Lots of dots",
+        plusPoints: "More dots",
+    },
+    {
+        id: "7",
         role: "Frontend Developer",
         field: "Engineer",
         description: "Lots of text",
@@ -54,7 +63,7 @@ const jobOpenings = [
         plusPoints: "More dots",
     },
     {
-        id: "2",
+        id: "8",
         role: "Frontend Developer",
         field: "Engineer",
         description: "Lots of text",
@@ -62,7 +71,7 @@ const jobOpenings = [
         plusPoints: "More dots",
     },
     {
-        id: "2",
+        id: "9",
         role: "Frontend Developer",
         field: "Engineer",
         description: "Lots of text",
@@ -70,7 +79,7 @@ const jobOpenings = [
         plusPoints: "More dots",
     },
     {
-        id: "2",
+        id: "10",
         role: "Frontend Developer",
         field: "Engineer",
         description: "Lots of text",
@@ -78,30 +87,13 @@ const jobOpenings = [
         plusPoints: "More dots",
     },
     {
-        id: "2",
+        id: "11",
         role: "Frontend Developer",
         field: "Engineer",
         description: "Lots of text",
         requirements: "Lots of dots",
         plusPoints: "More dots",
     },
-    {
-        id: "2",
-        role: "Frontend Developer",
-        field: "Engineer",
-        description: "Lots of text",
-        requirements: "Lots of dots",
-        plusPoints: "More dots",
-    },
-    {
-        id: "2",
-        role: "Frontend Developer",
-        field: "Engineer",
-        description: "Lots of text",
-        requirements: "Lots of dots",
-        plusPoints: "More dots",
-    },
-    
 ];
 
 class Recruit extends Component {
@@ -111,8 +103,8 @@ class Recruit extends Component {
 
     renderOpenPositions() {
         if (true) {
-            return jobOpenings.map(e => <JobOpeningCard key={e.id} album={e}/>);
-                //<jobOpenings key={e.id} props={e} />
+            return jobOpenings.map(e => <JobOpeningCard key={e.id} album={e} />);
+            //<jobOpenings key={e.id} props={e} />
             //});
         }
         return <div>There are currently no open positions :(</div>
@@ -129,7 +121,7 @@ class Recruit extends Component {
                 </div>
                 <div className={styles.informationContainer}>
                     <div className={styles.orientation}>
-                        <p>START / JOBS</p>
+                        <p><Link to={"/"}>START</Link> / JOBS</p>
                     </div>
                     <div className={styles.aboutMutate}>
                         <p>Work at MUTATE</p>
@@ -142,8 +134,14 @@ class Recruit extends Component {
                 </div>
                 <div className={styles.jobsContainer}>
                     <p className={styles.jobHeader}>Open Positions</p>
-                    <div className={styles.jobCardsContainer}>
-                    {this.renderOpenPositions()}
+                    <div className={styles.selectionWrapper}>
+                        <div className={styles.widthDefault}>
+                            <div className={styles.flexHorizont}>
+                                <div className={styles.jobCardsFlexWrapper}>
+                                    {this.renderOpenPositions()}
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div>

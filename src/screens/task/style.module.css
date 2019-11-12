@@ -1,0 +1,125 @@
+.first {
+    display: block;
+}
+
+.pageSelection {
+    padding-top: 30px;
+
+    /* Här kan det komma en bakgrund */
+    background-color: lightpink;
+}
+
+.pageSelectionWrapper {
+    margin: 0 auto;
+    max-width: 1440px;
+}
+
+.widthDefault {
+    padding: 0 15.27777777777778%;
+}
+
+.flexHorizontal {
+    margin-top: 100px;
+    display: flex;
+    flex-direction: row;
+
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+}
+
+.flexChild {
+    flex-grow: 0;
+    flex-shrink: 0;
+    
+    
+}
+
+.flexChild .jobImgWrapper {
+    height: 40px;
+    width: 40px;
+    margin-right: 40px;
+    padding: 10px;
+    background: #fff;
+    border-radius: 50%;
+    display: inline-block;
+
+}
+.flexChild .jobImgWrapper .fieldImg {
+    height: 40px;
+    width: 40px;
+}
+
+.jobTextFlex {
+    flex-shrink: 1;
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+    word-wrap: break-word;
+}
+
+.jobTextFlex h3 {
+    font-size: 36px;
+    margin: 0px;
+}
+
+.jobTextFlex .stycke {
+    margin-top: 20px;
+}
+
+.backToRecruitButton {
+    padding-left: 8px;
+    padding-right: 8px;
+    color: white;
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    flex-grow: 0;
+    flex-shrink: 0;
+    
+
+    margin-top: 20px;
+    margin-bottom: 100px;
+
+    -webkit-transition: all .17s ease-out;
+    transition: all .17s ease-out;
+
+    border: 1px solid hsla(0,0%,100%,.3);
+}
+
+.backToRecruitButton:hover {
+    border-color: white;
+    transform: translateY(-2px);
+}
+
+.backToRecruitButton .arrowImg {
+    width: 20px;
+    height: 20px;
+    padding-bottom: 3px;
+    margin-right: 10px;
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+
+@media only screen and (max-width: 850px) {
+    .flexHorizontal {
+        flex-direction: column;
+    }
+    .widthDefault {
+        padding: 0 30px;
+    }
+    .flexChild .jobImgWrapper {
+        margin-bottom: 20px;
+        margin-right: 0;
+    
+    }
+}
