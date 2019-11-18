@@ -1,3 +1,5 @@
+
+
 .first {
     display: block;
 }
@@ -72,6 +74,7 @@
 
 .jobTextFlex .stycke {
     margin-top: 20px;
+    line-height: 1.6666666666666667;
 }
 
 .backToRecruitButton {
@@ -110,6 +113,43 @@
     transform: rotate(180deg);
 }
 
+.eventuellBackground .pageSelection {
+    /* Här kan det komma en bakgrund */
+    padding: 0;
+    overflow: hidden;
+    background-color: pink;
+}
+
+.eventuellBackground .pageSelection .pageSelectionWrapper {
+    margin: 0 auto;
+    max-width: 1440px;
+}
+
+.otherWidth {
+    padding: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    line-height: 1.6666666666666667;
+}
+
+.diversityStatement {
+    margin-top: 60px;
+}
+
+.description .listContainer {
+    padding-left: 18px;
+}
+
+.descriptionHeader {
+    margin-top: 40px;
+}
+
+.hiringProcess {
+    margin: 0;
+    margin-top: 40px;
+}
+
 @media only screen and (max-width: 850px) {
     .flexHorizontal {
         flex-direction: column;
@@ -120,6 +160,9 @@
     .flexChild .jobImgWrapper {
         margin-bottom: 20px;
         margin-right: 0;
-    
+    }
+    .otherWidth {
+        width: auto;
+        padding: 0 30px;
     }
 }

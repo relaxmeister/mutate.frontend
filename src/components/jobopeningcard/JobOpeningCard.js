@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 import babyImg from '../../assets/icons/baby.png'
 import engineerImg from '../../assets/icons/ai.png';
+import worker from '../../assets/icons/worker.png';
 import defaultImg from '../../assets/icons/policeman.png';
 import arrow from '../../assets/icons/right-arrow.png';
 
@@ -18,6 +19,9 @@ const JobOpeningCard = ({ album }) => {
         }
         if (field === 'Engineer') {
             return <img className={styles.fieldImg} src={engineerImg} />
+        }
+        if (field === 'Working Class Hero') {
+            return <img className={styles.fieldImg} src={worker} />
         }
         return <img className={styles.fieldImg} src={defaultImg} />
     }

@@ -17,14 +17,14 @@ const jobOpenings = [
     {
         id: "2",
         role: "Frontend Developer",
-        field: "Engineer",
+        field: "Working Class Hero",
         description: "Lots of text",
         requirements: "Lots of dots",
         plusPoints: "More dots",
     },
     {
         id: "3",
-        role: "Senior UI/UX Designer",
+        role: "Please dont shake the baby",
         field: "Design", //conditional image beroende på field
         description: "Lots of text",
         requirements: "Lots of dots",
@@ -100,6 +100,9 @@ class Recruit extends Component {
 
     //Vill sannolikt lägga in någon typ av filtrering för att komma i kontakt med state för
     //utmaningens skull
+    componentDidMount() {
+        window.scrollTo(0, 0);
+    }
 
     renderOpenPositions() {
         if (true) {
@@ -125,11 +128,13 @@ class Recruit extends Component {
                     </div>
                     <div className={styles.aboutMutate}>
                         <p>Work at MUTATE</p>
-                        <p>MUTATE is always looking for talented and self-motivated individuals with the capability and drive to help create the greatest engine in the world.</p>
+                        <p>Mutate is always looking for talented and passionate individuals to join our expanding team in Stockholm.</p>
 
-                        <p style={{ marginBottom: 40 }}>It doesn’t matter if you’re a mod maker or a senior developer with fifteen years of experience; we are on the lookout for creative,
-                        committed and interesting people who aren’t afraid to fail. We want people who love to take chances, roll with the punches, and accept challenges.
-                        And we want people that truly believe they can make our products and our company the best in the industry.</p>
+                        <p style={{ marginBottom: 40 }}>
+                            You will be working with skilled colleagues and be part of an exciting project,
+                            where we are creating a gaming engine and platform for the future.
+                            If you can’t see your desired position listed, just send us your resume to jobs@mutate.se.
+                        </p>
                     </div>
                 </div>
                 <div className={styles.jobsContainer}>

@@ -1,0 +1,169 @@
+body {
+    /* overflow: hidden; /* tar bort scroll som effekt av detta */
+}
+
+.modalAnimationWrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 9999;
+}
+
+.modalAnimationWrapper .modalAnimationShade {
+    opacity: 0.9;
+    transform: translateZ(0px);
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: #7289da;
+}
+
+.modalAnimationWrapper .modalAnimationContent {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+
+    opacity: 1;
+    transform: scale(1) translateZ(0px);
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+.formModalWrapper {
+    -webkit-box-shadow: 0 9px 20px 0 rgba(0,0,0,.2);
+    box-shadow: 0 9px 20px 0 rgba(0,0,0,.2);
+    /*border-radius: 0 8px 8px 0;*/
+    max-height: 90%;
+    position: relative;
+    width: 800px;
+    height: 680px;
+
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.formModalWrapper .formModalContent {
+    border-radius: 8px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    height: 100%;
+    position: relative;
+    background: #fff;
+}
+
+.animationWrapper {
+    opacity: 1;
+    transform: translateY(0px) translateZ(0px);
+
+    position: absolute;
+    height: 100%;
+    max-height: 100%;
+    overflow-y: auto;
+    width: 100%;
+}
+
+.animationWrapper .formSection {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    min-height: 100%;
+    margin: 0;
+    padding: 40px;
+}
+
+.formSection .formTitle {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 20px;
+    text-transform: uppercase;
+
+    margin: 0;
+    margin-bottom: 20px;
+}
+
+.animationWrapper .formSection .flexVertical {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column; /* de har sannolikt auto-CSS där en commmand ger flera */
+}
+
+.formSection .flexVertical .formRow {
+    /* flexHorizontal */
+
+    width: 100%;
+    padding-bottom: 20px;
+
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+}
+
+.formSection .flexVertical .formRow > div:first-child {
+    margin-right: 10px;
+}
+
+.formSection .flexVertical .formRow > div:last-child {
+    margin-left: 10px;
+}
+
+.formSection .flexVertical .formRow h5:last-child {
+    margin-left: 0px;
+}
+
+.formRowSingleItem {
+    width: 100%;
+    padding-bottom: 20px;
+}
+
+.formSection .flexVertical .formRow .ui-form-item{
+    
+}
+
+.buttonClose {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    border: 0;
+    cursor: pointer;
+    background: url(../../assets/icons/close.png) no-repeat 5px 5px;
+    background-size: 10px;
+    width: 20px;
+    height: 20px;
+    z-index: 9999;
+}
+
+@media only screen and (max-width: 850px) {
+    .formModalWrapper {
+        height: 100%;
+        max-height: 100%;
+    }
+
+    .formModalWrapper .formModalContent {
+        border-radius: 0px;
+    }
+}

@@ -1,5 +1,5 @@
 .first {
-    background: red;
+    background: #f5f8fa;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -17,16 +17,17 @@
 .upperSection {
     width: 100%;
     height: 400px;
-    /*background-image: url(../../assets/imgs/flame.png);*/
-    background-color: lightblue;
-    background-position: top,bottom;
-    background-size: contain;
+    background-image: url(https://cdn.cms-twdigitalassets.com/content/dam/careers-twitter/jobs/jobsmasterhead.jpg);
+    background-color: lightblue;;
+    background-position: 50% 50%;
+    background-size: cover;
     position: relative;
     
 }
 
 .upperSection .textContainer {
     position: absolute;
+    color: white;
     bottom: 10%;
     left: 10%;
     display: flex;
@@ -34,13 +35,11 @@
 }
 
 .upperSection .textContainer .jobHeader {
-    color: black;
     font-size: 42px;
-    font-weight: bold;
+    font-weight: bolder;
 }
 
 .upperSection .textContainer .jobCatchphrase {
-    color: black;
     font-size: 18px;
     
 }
@@ -48,7 +47,7 @@
 .first .informationContainer {
     display: flex;
     flex-direction: column;
-    background-color: lightblue;
+    /*background-color: lightblue;*/
     max-width: 1000px;
     width: 100%;
 }
@@ -61,6 +60,7 @@
 .informationContainer .aboutMutate { /* skulle kunna vara en bild/ikon istället */
     padding-left: 18%;
     padding-right: 18%;
+    line-height: 1.6666666666666667;
 }
 
 .jobsContainer {
@@ -69,9 +69,15 @@
     align-items: center;
     width: 100%;
     min-height: 550px;
-    background: blue;
-    
-    
+    /*background: blue;*/
+    /* Här slängs en fixed brgb in */
+
+    background-attachment: scroll,fixed;
+    background-image: -webkit-gradient(linear,left bottom,left top,from(rgba(248,249,253,.6)),to(#f5f8fa)),url(../../assets/imgs/Rainbow-Download-PNG.png);
+    background-image: linear-gradient(0deg,rgba(248,249,253,.6),#f5f8fa),url(../../assets/imgs/Rainbow-Download-PNG.png);
+    background-position: top,bottom;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .jobsContainer .selectionWrapper {
@@ -96,7 +102,7 @@
 .jobsContainer .jobHeader {
     font-size: 18px;
     padding-top: 40px;
-    padding-left: 18%;
+    
     letter-spacing: 1px;
 }
 
