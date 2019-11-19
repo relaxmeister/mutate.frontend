@@ -79,8 +79,6 @@
 
 .formItem .flexVertical .inputField:hover {
     border-color: #7289da;
-    -webkit-box-shadow: 0 0 6px 0 rgba(114,137,218,.5);
-    box-shadow: 0 0 6px 0 rgba(114,137,218,.5);
 }
 
 .formItem .flexVertical .inputField:focus {
@@ -114,8 +112,6 @@
 
 .formItem .flexVertical .textAreaField:hover {
     border-color: #7289da;
-    -webkit-box-shadow: 0 0 6px 0 rgba(114,137,218,.5);
-    box-shadow: 0 0 6px 0 rgba(114,137,218,.5);
 }
 
 .formItem .flexVertical .textAreaField:focus {

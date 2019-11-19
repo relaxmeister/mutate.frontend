@@ -24,7 +24,7 @@ const statement =
     + "Vi tror att mångfald ger en bättre produkt, bättre beslut och en bättre arbetsmiljö. "
     + "Alla här är fast beslutna att göra Discord till en företrädare för den värld vi vill leva och spela i.";
 
-const hiringProcess = 
+const hiringProcess =
     "As part of the application process, we may ask you to take on a practical work test. "
     + "The position is full-time and permanent, and we review applications continuously.";
 
@@ -50,7 +50,7 @@ const dummyTask = {
     ],
 }
 
-const formData = { 
+const formData = {
     name: "",
     lastname: "",
     email: "",
@@ -62,7 +62,7 @@ const formData = {
 
 class Task extends Component {
 
-    state = { modal: false,  formData: formData }
+    state = { modal: false, formData: formData }
 
     componentDidMount() {
         window.scrollTo(0, 0);
@@ -97,10 +97,21 @@ class Task extends Component {
         })
     }
 
+    onSubmit() {
+        //TODO HELP ME POSTNORD
+    }
+
+
+
     maybeRenderForm() {
         if (this.state.modal) {
             return (
-                <ApplicationForm onModalClose={this.modalCloseHandler.bind(this)} onFormDataChange={() => this.setState({ formData })}/>
+                <ApplicationForm
+                    onModalClose={this.modalCloseHandler.bind(this)}
+                    //onFormDataChange={(e) => this.setState({ formData: formData.name e.target.value })}
+                    onFormChange={(form) => this.setState({formData: form})}
+                    formData={this.state.formData}
+                />
             );
         }
         return null;
