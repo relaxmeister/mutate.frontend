@@ -13,7 +13,7 @@ const SocialMedia = (props) => {
 }
 
 SocialMedia.propTypes = {
-    propname: PropTypes.object.isRequired
+    album: PropTypes.object.isRequired
 }
 
 export default SocialMedia;

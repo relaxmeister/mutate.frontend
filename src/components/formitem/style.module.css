@@ -87,6 +87,25 @@
     box-shadow: 0 0 6px 0 rgba(114,137,218,.5);
 }
 
+.formItem .flexVertical .inputFieldError { /* ordning och specifikt spelar stor roll */
+    border-color: #dd4040;
+    -webkit-box-shadow: 0 0 6px 0 rgba(248, 9, 41, 0.671);
+    box-shadow: 0 0 6px 0 rgba(248, 9, 41, 0.671);
+}
+
+.formItem .flexVertical .inputFieldError:hover {
+    border-color: #dd4040;
+    -webkit-box-shadow: 0 0 6px 0 rgba(248, 9, 41, 0.671);
+    box-shadow: 0 0 6px 0 rgba(248, 9, 41, 0.671);
+}
+
+.formItem .flexVertical .inputFieldError:focus {
+    border-color: #dd4040;
+    -webkit-box-shadow: 0 0 6px 0 rgba(248, 9, 41, 0.671);
+    box-shadow: 0 0 6px 0 rgba(248, 9, 41, 0.671);
+}
+
+
 .formItem .flexVertical .textAreaField {
     height: 120px;
     resize: none;

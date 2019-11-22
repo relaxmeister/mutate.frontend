@@ -58,6 +58,7 @@ const formData = {
     city: "",
     cv: "", // denna blir klurig
     pb: "",
+    reasoning: "",
 }
 
 class Task extends Component {
@@ -97,18 +98,12 @@ class Task extends Component {
         })
     }
 
-    onSubmit() {
-        //TODO HELP ME POSTNORD
-    }
-
-
 
     maybeRenderForm() {
         if (this.state.modal) {
             return (
                 <ApplicationForm
                     onModalClose={this.modalCloseHandler.bind(this)}
-                    //onFormDataChange={(e) => this.setState({ formData: formData.name e.target.value })}
                     onFormChange={(form) => this.setState({formData: form})}
                     formData={this.state.formData}
                 />

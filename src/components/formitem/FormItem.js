@@ -26,8 +26,8 @@ class FormItem extends Component {
     }
 
     maybeRenderError() {
-        if (false) {
-            return (<div className={styles.error}>HOL' UP!</div>);
+        if (this.props.error !== undefined) {
+            return (<div className={styles.error}>{this.props.error !== null ? this.props.error : "default error"}</div>);
         }
     }
 
@@ -40,23 +40,32 @@ class FormItem extends Component {
         if (this.props.type === 'area') {
             return (
                 <textarea
+                    value={this.props.text}
                     className={styles.textAreaField}
                     placeholder={this.props.placeholder}
+                    onChange={this.onChange.bind(this)}
+                    type={this.props.inputType}
                 />
             );
         } if (this.props.type === 'button') {
             return (
                 <UploadButton
+                    value={this.props.text} // funkar delvis, men inte till att inputen kommer ihåg sin filinput
                     topic={this.props.topic}
+                    onChange={this.props.onChange}
+                    inputType={this.props.inputType}
                 //state of some kind
                 />
             );
         }
         return (
-            <input className={styles.inputField}
+            <input className={`${styles.inputField} ${this.props.error === "" || this.props.error !== undefined ? styles.inputFieldError : undefined}`}
+            /* ${((this.props.error === "" || this.props.error !== undefined) ? styles.inputFieldError : null)}`}*/
+            /* className={`${styles.formRowSingleItem} ${styles.flexJustifyCenter} ${styles.flexHorizontal}`} */
                 value={this.props.text}
                 onChange={this.onChange.bind(this)}
-                type={"text"}
+                type={this.props.inputType !== undefined ? this.props.inputType : "number"}
+                required={this.props.required}
                 placeholder={this.props.placeholder}
                 ref={this.textInput}
             />
@@ -82,7 +91,14 @@ class FormItem extends Component {
 FormItem.propTypes = {
     title: PropTypes.string.isRequired,
     type: PropTypes.oneOf(['input', 'area', 'button']),
+    inputType: PropTypes.string.isRequired,
     required: PropTypes.bool.isRequired,
+    error: PropTypes.string.isRequired,
+    onChange: function() {
+        if (((this.props.type === 'input' || (this.props.type === 'area') && typeof(this.props.onChange) !== 'function'))) {
+            return new Error('Please provide a onChange function!');
+        }
+    },
 }
 
 export default FormItem;
