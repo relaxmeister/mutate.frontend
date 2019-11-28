@@ -8,6 +8,16 @@ import styles from './style.module.css';
 
 const emailValidator = new EmailValidator();
 
+const obj = {
+	name: "Jonas",
+	lastname: "Hallstrom",
+	phone: "123",
+	email: "123@123.se",
+    city: "Stockholm",
+    job: "Frontender",
+	reasoning: "Let me in pls"
+}
+
 class ApplicationForm extends Component {
 
     constructor() {
@@ -60,9 +70,9 @@ class ApplicationForm extends Component {
     }
 
     onSubmit() {
-        const newFormData = {                   // object that we want to update
-            ...this.props.formData,             // keep all other key-value pairs
-            name: "",                    // update the value of specific key
+        const newFormData = {   // Rimligt att nollställa alla värden vid submit //förutom job
+            ...this.props.formData,
+            name: "",
             lastname: "",
             email: "",
             phone: "",
@@ -73,9 +83,71 @@ class ApplicationForm extends Component {
         }
         // POST
 
-        //THEN
-        this.props.onFormChange(newFormData)
-        console.log("CLEAR FORM")
+        // fetch("http://localhost:8080/recruit/ph", {
+        //     method: "POST",
+        //     body: JSON.stringify(this.props.formData),
+        //     headers: {
+        //         "Content-type": "application/json",
+        //         //'Access-Control-Allow-Origin': '*', Ändringen i backend "@CrossOrigin(origins="*")" fundamental
+        //     }
+        // }).then(response => {
+        //     if (response.status >= 200 && response.status < 300) {
+                
+        //         console.log(response);
+        //         // window.location.reload();
+        //         this.props.onFormChange(newFormData) // skickar vidare nollställningen
+        //         console.log("CLEAR FORM")
+        //         return response.json();
+        //     } else {
+        //         console.log("something went wrong" + JSON.stringify(obj));
+        //     }
+        // }).then(json => {
+        //     console.log(json);
+        //     return json;
+        // })
+        // .catch(err => err);
+        console.log("----------")
+        const formDataWoW = new FormData(); // viktig del i ett skicka denna typ av data
+        formDataWoW.append('file1', this.props.formData.cv);
+        formDataWoW.append('file2', this.props.formData.pb);
+        formDataWoW.append('obj', JSON.stringify(this.props.formData));
+        /*formDataWoW.append('lastname', this.props.formData.lastname);
+        formDataWoW.append('email', this.props.formData.email);
+        formDataWoW.append('phone', this.props.formData.phone);
+        formDataWoW.append('city', this.props.formData.city);
+        formDataWoW.append('reasoning', this.props.formData.reasoning);*/ // optional
+
+        // formData.append('name', true);
+        // formData.append('name', 74);
+        // formData.append('name', 'John');
+
+        //formData.getAll('name'); // ["true", "74", "John"]
+
+        console.log("data: " + formDataWoW.getAll)
+        console.log("formdatawow: " + formDataWoW);
+        console.log("cv: " + this.props.formData.cv);
+
+        fetch("http://localhost:8080/recruit/phnewer", {
+            method: "POST",
+            body: formDataWoW,
+            headers: {
+                'Access-Control-Allow-Origin': '*' //, Ändringen i backend "@CrossOrigin(origins="*")" fundamental
+            }
+        }).then(async response => {
+            if (response.status >= 200 && response.status < 300) {
+                
+                // window.location.reload();
+                this.props.onFormChange(newFormData) // skickar vidare nollställningen
+                console.log("CLEAR FORM")
+                return response.json();
+            } else {
+                console.log("something went wrong" + JSON.stringify(obj));
+            }
+        }).then(json => {
+            console.log(json);
+            return json;
+        })
+        .catch(err => err);
     }
 
     validateForm(event) {

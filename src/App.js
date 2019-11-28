@@ -8,13 +8,13 @@ import Download from './screens/download/Download';
 import About from './screens/about/About';
 import Task from './screens/task/Task';
 
-// const HeaderHOCComponent = withRouter((props) => <Header {...props} />);
+const HeaderHOCComponent = withRouter((props) => <Header {...props} />);
 
 const App = () => {
     return (
         <div>
             <Router>
-                <Header />
+                <HeaderHOCComponent />
                 <Route path="/" exact component={Home} />
                 <Route path="/download" exact component={Download} />
                 <Route path="/about" exact component={About} />

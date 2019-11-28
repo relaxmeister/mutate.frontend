@@ -29,7 +29,7 @@ const JobOpeningCard = ({ album }) => {
     return (
         <div className={styles.jobCardWrapper}>
             <Link to={"/recruit/ph"}>
-            <div className={styles.container}>
+            <div className={styles.container} onClick={() => console.log("clicked!!")}>
                 {functionName()}
                 <h4 className={styles.role}>{role}</h4>
                 <p className={styles.field}>{field}</p>

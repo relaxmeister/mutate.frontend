@@ -23,7 +23,7 @@ class UploadButton extends Component {
         /// den ger oss hela filepathen? det under ger oss enbart filen
         if (this.fileInput.current.files.length > 0) {
             //this.setState({ value: this.fileInput.current.files[0].name });
-            this.props.onChange(this.fileInput.current.files[0].name);
+            this.props.onChange(this.fileInput.current.files[0]);
         }
         //console.log(this.fileInput.current.files[0].name) // skriver ett steg efter, probs asyncproblem
     }

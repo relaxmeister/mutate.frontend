@@ -56,9 +56,10 @@ const formData = {
     email: "",
     phone: "",
     city: "",
+    job: Text.Header,
+    reasoning: "",
     cv: "", // denna blir klurig
     pb: "",
-    reasoning: "",
 }
 
 class Task extends Component {
@@ -67,7 +68,17 @@ class Task extends Component {
 
     componentDidMount() {
         window.scrollTo(0, 0);
-        this.setState({ modal: false });
+        const newFormData = {
+            ...formData,
+            job: Text.Header
+        }
+        //this.setState({ lastNameError: undefined })
+        //this.props.onFormChange(newFormData)
+
+        this.setState({ 
+            modal: false,
+
+        });
     }
 
     renderJobDescription() {
