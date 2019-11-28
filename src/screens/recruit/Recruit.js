@@ -1,112 +1,34 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { getJobsOpening } from '../../services/api/ApiService';
 
 import styles from './style.module.css';
 
 import JobOpeningCard from '../../components/jobopeningcard/JobOpeningCard';
 
-const jobOpenings = [
-    {
-        id: "1",
-        role: "Senior UI/UX Designer AND TROLOLRORLROL WOFF WOFF WOOF",
-        field: "Design", //conditional image beroende på field
-        description: "Lots of text",
-        requirements: "Lots of dots",
-        plusPoints: "More dots",
-    },
-    {
-        id: "2",
-        role: "Frontend Developer",
-        field: "Working Class Hero",
-        description: "Lots of text",
-        requirements: "Lots of dots",
-        plusPoints: "More dots",
-    },
-    {
-        id: "3",
-        role: "Please dont shake the baby",
-        field: "Design", //conditional image beroende på field
-        description: "Lots of text",
-        requirements: "Lots of dots",
-        plusPoints: "More dots",
-    },
-    {
-        id: "4",
-        role: "Frontend Developer",
-        field: "Engineer",
-        description: "Lots of text",
-        requirements: "Lots of dots",
-        plusPoints: "More dots",
-    },
-    {
-        id: "5",
-        role: "Frontend Developer",
-        field: "Engineer",
-        description: "Lots of text",
-        requirements: "Lots of dots",
-        plusPoints: "More dots",
-    },
-    {
-        id: "6",
-        role: "Freeloader",
-        field: "Unknown",
-        description: "Lots of text",
-        requirements: "Lots of dots",
-        plusPoints: "More dots",
-    },
-    {
-        id: "7",
-        role: "Frontend Developer",
-        field: "Engineer",
-        description: "Lots of text",
-        requirements: "Lots of dots",
-        plusPoints: "More dots",
-    },
-    {
-        id: "8",
-        role: "Frontend Developer",
-        field: "Engineer",
-        description: "Lots of text",
-        requirements: "Lots of dots",
-        plusPoints: "More dots",
-    },
-    {
-        id: "9",
-        role: "Frontend Developer",
-        field: "Engineer",
-        description: "Lots of text",
-        requirements: "Lots of dots",
-        plusPoints: "More dots",
-    },
-    {
-        id: "10",
-        role: "Frontend Developer",
-        field: "Engineer",
-        description: "Lots of text",
-        requirements: "Lots of dots",
-        plusPoints: "More dots",
-    },
-    {
-        id: "11",
-        role: "Frontend Developer",
-        field: "Engineer",
-        description: "Lots of text",
-        requirements: "Lots of dots",
-        plusPoints: "More dots",
-    },
-];
-
 class Recruit extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            jobOpenings: []
+        }
+    }
 
     //Vill sannolikt lägga in någon typ av filtrering för att komma i kontakt med state för
     //utmaningens skull
     componentDidMount() {
+        getJobsOpening().then((jobs) => {
+            this.setState({
+                jobOpenings: jobs
+            })
+        });
         window.scrollTo(0, 0);
     }
 
     renderOpenPositions() {
         if (true) {
-            return jobOpenings.map(e => <JobOpeningCard key={e.id} album={e} />);
+            return this.state.jobOpenings.map(e => <JobOpeningCard key={e.id} album={e} />);
             //<jobOpenings key={e.id} props={e} />
             //});
         }

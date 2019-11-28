@@ -7,6 +7,7 @@ import styles from './style.module.css'; // webpacks config gör att detta är s
 
 import defaultImg from '../../assets/icons/policeman.png';
 import arrow from '../../assets/icons/right-arrow.png';
+import { getJobDetails } from '../../services/api/ApiService';
 
 const Text = {
     Header: "Frontend Developer",
@@ -64,9 +65,15 @@ const formData = {
 
 class Task extends Component {
 
-    state = { modal: false, formData: formData }
+    state = { modal: false, formData: formData, jobData: undefined }
 
     componentDidMount() {
+        const id = parseInt(this.props.match.params.id, 10);
+        getJobDetails(id).then((jobData) => {
+            this.setState({
+                jobData: jobData
+            })
+        });
         window.scrollTo(0, 0);
         const newFormData = {
             ...formData,
@@ -140,7 +147,7 @@ class Task extends Component {
                                     </div>
                                 </div>
                                 <div className={styles.jobTextFlex}>
-                                    <h3>{Text.Header}</h3>
+                                    <h3>{this.state.jobData != undefined ? this.state.jobData.title : "?"}</h3>
                                     <div>
                                         <div className={styles.stycke}>
                                             You will develop a desktop client application based on Electron.

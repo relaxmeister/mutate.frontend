@@ -40,15 +40,17 @@ const Header = (props) => {
             <HeaderMenuTag key={e.namn} album={e} />
         );
     }
-
+    
     return (
         <div className={styles.absolut}>
             <div className={styles.first}>
                 <div className={styles.second}>
                     <div className={styles.third}>
-                        <Link to="/">
-                            <img src={logo} className={styles.logo} />
-                        </Link>
+
+                        <img src={logo} className={styles.logo} onClick={() => {
+                            console.log("clicked!!");
+                            props.history.push("/");
+                        }} />
                         {renderPages()}
                     </div>
                     <div className={styles.headerRightContent}>

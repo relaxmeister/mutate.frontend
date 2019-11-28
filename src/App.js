@@ -15,11 +15,11 @@ const App = () => {
         <div>
             <Router>
                 <HeaderHOCComponent />
-                <Route path="/" exact component={Home} />
-                <Route path="/download" exact component={Download} />
-                <Route path="/about" exact component={About} />
-                <Route exact path="/recruit" component={Recruit} />
-                <Route path="/recruit/ph" component={Task} />
+                <Route path={"/"} exact component={Home} />
+                <Route path={"/download"} exact component={Download} />
+                <Route path={"/about"} exact component={About} />
+                <Route exact path={"/recruit"} component={Recruit} />
+                <Route path={"/recruit/:id"} component={Task} />
             </Router>
         </div>
     );
