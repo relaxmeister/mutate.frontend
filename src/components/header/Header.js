@@ -1,10 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import React, { Component } from 'react';
+//import PropTypes from 'prop-types';
+//import { Link } from 'react-router-dom';
 
 import styles from './style.module.css';
 import HeaderMenuTag from '../headermenutag/HeaderMenuTag';
 import SocialMedia from '../socialmedia/SocialMedia';
+import HamburgerMenu from '../hamburgermenu/HamburgerMenu';
 
 import logo from '../../assets/icons/mutate-logo.png';
 import menuToggle from '../../assets/icons/menu-button.png';
@@ -21,48 +22,100 @@ const pages = [
 ];
 
 const socialmedia = [
-    { namn: "twitter", link: twitterImg },
-    { namn: "youtube", link: youtubeImg },
-    { namn: "instagram", link: instagramImg },
+    { namn: "twitter", link: twitterImg, alt: 'twitter' },
+    { namn: "youtube", link: youtubeImg, alt: 'youtube' },
+    { namn: "instagram", link: instagramImg, alt: 'instagram' },
 ]
 
 
-const Header = (props) => {
+class Header extends Component {
 
-    const renderSocialmedia = () => {
+    constructor(props) {
+        super(props);
+        this.state = { hamburgermenu: false };
+
+        this.menuClick = this.menuClick.bind(this);
+    }
+
+    renderSocialmedia() {
         return socialmedia.map(e =>
             <SocialMedia key={e.namn} album={e} />
         );
     }
 
-    const renderPages = () => {
+    renderPages() {
         return pages.map(e =>
             <HeaderMenuTag key={e.namn} album={e} />
         );
     }
-    
-    return (
-        <div className={styles.absolut}>
-            <div className={styles.first}>
-                <div className={styles.second}>
-                    <div className={styles.third}>
 
-                        <img src={logo} className={styles.logo} onClick={() => {
-                            console.log("clicked!!");
-                            props.history.push("/");
-                        }} />
-                        {renderPages()}
-                    </div>
-                    <div className={styles.headerRightContent}>
-                        <div className={styles.socialmediaContainer}>
-                            {renderSocialmedia()}
+    renderModal() {
+        if (this.state.hamburgermenu === true) {
+            return <HamburgerMenu menuToggle={this.menuClick} />;
+        } else return null;
+    }
+
+    menuClick() {
+
+        var move = document.getElementById('sidemenu');
+
+        if (this.state.hamburgermenu === true) {
+            console.log("close hamburger")
+            //move.style.marginLeft = "500px";
+            move.style.transform = "translateX(100%)"; 
+            console.log(move);
+            document.body.style.overflow = "visible";
+            //setTimeout(this.setState({ hamburgermenu: false }), 3000);
+            //setTimeout(function(){ alert("Hello"); }, 3000);
+            this.setState({ hamburgermenu: false })
+        } else {
+            console.log("open hamburger")
+            //move.style.marginLeft = "200px";
+            document.body.style.overflow = "hidden"; // tar bort scroll
+            console.log(move.style);
+            
+            move.style.transform = "translateX(0%)"; 
+            this.setState({ hamburgermenu: true })
+        }
+
+    }
+
+
+    render() {
+        return (
+            <div className={styles.absolut}>
+                <div className={styles.first}>
+                    <div className={styles.second}>
+                        <div className={styles.third}>
+
+                            <img
+                                src={logo}
+                                className={styles.logo}
+                                alt="logo"
+                                onClick={() => {
+                                    console.log("clicked!!");
+                                    this.props.history.push("/");
+                                }} />
+                            {this.renderPages()}
                         </div>
-                        <img src={menuToggle} className={styles.menuToggle} />
+                        <div className={styles.headerRightContent}>
+                            <div className={styles.socialmediaContainer}>
+                                {this.renderSocialmedia()}
+                            </div>
+                            <img
+                                src={menuToggle}
+                                className={styles.menuToggle}
+                                alt="hamburgermenu"
+                                onClick={this.menuClick}
+                            />
+                        </div>
                     </div>
                 </div>
+                {/*this.renderModal()*/}
+                <HamburgerMenu menuToggle={this.menuClick} />
             </div>
-        </div>
-    );
+        );
+    }
 }
 
 Header.propTypes = {

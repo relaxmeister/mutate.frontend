@@ -1,6 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { Link, withRouter } from 'react-router-dom';
+//import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 
 import babyImg from '../../assets/icons/baby.png'
 import engineerImg from '../../assets/icons/ai.png';
@@ -11,19 +11,19 @@ import arrow from '../../assets/icons/right-arrow.png';
 import styles from './style.module.css';
 
 const JobOpeningCard = ({ album, history }) => {
-    const { id, role, field, description, requirements, plusPoints } = album // lite märkligt just med album.album
+    const { id, role, field } = album // lite märkligt just med album.album fixeed {}
 
     const functionName = () => {
         if (field === 'Design') {
-            return <img className={styles.fieldImg} src={babyImg} />
+            return <img className={styles.fieldImg} src={babyImg} alt="placeholder"/>
         }
         if (field === 'Engineer') {
-            return <img className={styles.fieldImg} src={engineerImg} />
+            return <img className={styles.fieldImg} src={engineerImg} alt="placeholder"/>
         }
         if (field === 'Working Class Hero') {
-            return <img className={styles.fieldImg} src={worker} />
+            return <img className={styles.fieldImg} src={worker} alt="placeholder"/>
         }
-        return <img className={styles.fieldImg} src={defaultImg} />
+        return <img className={styles.fieldImg} src={defaultImg} alt="placeholder"/>
     }
 
     return (
@@ -36,7 +36,7 @@ const JobOpeningCard = ({ album, history }) => {
                 <h4 className={styles.role}>{role}</h4>
                 <p className={styles.field}>{field}</p>
                 <div className={styles.absoluteThis}>
-                    <img className={styles.arrowImg} src={arrow} />
+                    <img className={styles.arrowImg} src={arrow}  alt="placeholder" />
                 </div>
             </div>
         </div>

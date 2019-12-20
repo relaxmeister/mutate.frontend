@@ -1,5 +1,5 @@
 export const Resources = {
-    BASE_HOME = "/",
-    BASE_RECRUIT = "/recruit",
+    BASE_HOME: "/",
+    BASE_RECRUIT: "/recruit",
 }
 

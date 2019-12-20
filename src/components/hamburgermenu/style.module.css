@@ -1,0 +1,81 @@
+.modalWrapper {
+        
+    background-color: red;
+    z-index: 2;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    z-index: 9999;
+    padding: 0 1rem 1rem .5rem;
+    transform: translateX(100%);
+    -webkit-transition: all .6s ease;
+    transition: all .6s ease;
+}
+
+.modalWrapper:hover {
+    /*transform: translateX(0%);*/
+}
+
+.first { /* används inte atm */ 
+    display: flex;
+    flex-direction: row;
+    padding-right: 50px;
+    padding-left: 50px;
+    justify-content: center;
+    align-items: center;
+    
+    /*width: 100%;*/
+    
+ 
+}
+
+.modalContainer {
+    
+}
+
+.headerContainer {
+    padding: 1.5rem 2rem;
+    padding-right: calc(3rem);
+    margin: 0 -2rem 1rem;
+    display: flex;
+    align-items: center;
+    height: 70px;
+    justify-content: space-between;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+
+}
+
+.logo {
+    margin-right: 20px;
+
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+.menuToggle {
+    width: 20px;
+    height: 20px;
+}
+
+.bottomContainer {
+    position: fixed;
+    width: 100%;
+    padding: 1.5rem 1.5rem 2rem;
+    bottom: 0;
+    left: 0;
+    height: 50px;
+    background-color: blue;
+}

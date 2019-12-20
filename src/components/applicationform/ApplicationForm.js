@@ -480,7 +480,6 @@ class ApplicationForm extends Component {
                                                 <FormItem
                                                     text={this.props.formData.reasoning}
                                                     style={{ marginLeft: 0, marginRight: 0 }}
-                                                    text={this.props.formData.reasoning}
                                                     title={"WHY DO YOU WANT TO WORK AT MUTATE?"}
                                                     onChange={this.onReasoningChange}
                                                     placeholder={""}

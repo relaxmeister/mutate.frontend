@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { getJobsOpening } from '../../services/api/ApiService';
 
 import styles from './style.module.css';
@@ -24,14 +25,23 @@ class Recruit extends Component {
             })
         });
         window.scrollTo(0, 0);
+
+    }
+
+    componentDidUpdate() {
     }
 
     renderOpenPositions() {
-        if (true) {
-            return this.state.jobOpenings.map(e => <JobOpeningCard key={e.id} album={e} />);
-            //<jobOpenings key={e.id} props={e} />
-            //});
-        }
+        // if (true) {
+        //     return this.state.jobOpenings.map(e => <JobOpeningCard key={e.id} album={e} />);
+        //     //return this.props.job.jobs.map(e => <JobOpeningCard key={e.id} album={e} />);
+        //     //<jobOpenings key={e.id} props={e} />
+        //     //});
+        // }
+        if (this.props.job.jobs !== null) {
+            console.log("joblist: " + this.props.job.jobs);
+            return this.props.job.jobs.sort((a, b) => a.id - b.id).map(e => <JobOpeningCard key={e.id} album={e} />);
+        }//Vill antagligen ha ett errortest i samband med detta (success/error/no jobs)
         return <div>There are currently no open positions :(</div>
     }
 
@@ -79,4 +89,9 @@ class Recruit extends Component {
     } s
 }
 
-export default Recruit;
+const mapStateToProps = (state) => ({
+    placeholder: state.placeholder2,
+    job: state.job,
+});
+
+export default connect(mapStateToProps)(Recruit);

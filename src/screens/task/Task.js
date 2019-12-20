@@ -143,11 +143,11 @@ class Task extends Component {
                             <div className={styles.flexHorizontal}>
                                 <div className={styles.flexChild}>
                                     <div className={styles.jobImgWrapper}>
-                                        <img className={styles.fieldImg} src={defaultImg} />
+                                        <img className={styles.fieldImg} src={defaultImg} alt="placeholder" />
                                     </div>
                                 </div>
                                 <div className={styles.jobTextFlex}>
-                                    <h3>{this.state.jobData != undefined ? this.state.jobData.title : "?"}</h3>
+                                    <h3>{this.state.jobData !== undefined ? this.state.jobData.title : "?"}</h3>
                                     <div>
                                         <div className={styles.stycke}>
                                             You will develop a desktop client application based on Electron.
@@ -161,7 +161,7 @@ class Task extends Component {
                                     </div>
                                     <Link to={"/recruit"}>
                                         <div className={styles.backToRecruitButton}>
-                                            <img className={styles.arrowImg} src={arrow} />
+                                            <img className={styles.arrowImg} src={arrow} alt="placeholder" />
                                             Go back to jobs
                                         </div>
                                     </Link>

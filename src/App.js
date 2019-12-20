@@ -1,5 +1,7 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Switch, withRouter } from 'react-router-dom';
+import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { bajs, addToShoppingList } from '../src/store/actions/index';
 
 import Header from './components/header/Header';
 import Home from './screens/home/Home';
@@ -10,19 +12,52 @@ import Task from './screens/task/Task';
 
 const HeaderHOCComponent = withRouter((props) => <Header {...props} />);
 
-const App = () => {
-    return (
-        <div>
-            <Router>
-                <HeaderHOCComponent />
-                <Route path={"/"} exact component={Home} />
-                <Route path={"/download"} exact component={Download} />
-                <Route path={"/about"} exact component={About} />
-                <Route exact path={"/recruit"} component={Recruit} />
-                <Route path={"/recruit/:id"} component={Task} />
-            </Router>
-        </div>
-    );
-};
+class App extends Component {
 
-export default App;
+    componentDidMount() {
+        console.log("APPMOUNTED!")
+        this.props.addToShoppingList();
+        this.props.bajs();
+        fetch("http://localhost:8080/", {
+            method: "GET",
+            headers: {
+                'Access-Control-Allow-Origin': '*'
+            }
+        }).then(async response => {
+            if (response.status >= 200 && response.status < 300) {
+
+                console.log("successjbobobjob!");
+                //console.log(response.json());
+                return response.json();
+            } else {
+                console.log("something went wrong with GETJOBS");
+            }
+        }).then(json => {
+            console.log(json);
+            return json;
+        }).catch(err => err);
+        //funkar
+    }
+
+    render() {
+        return (
+            <div>
+                <Router>
+                    <HeaderHOCComponent />
+                    <Route path={"/"} exact component={Home} />
+                    <Route path={"/download"} exact component={Download} />
+                    <Route path={"/about"} exact component={About} />
+                    <Route exact path={"/recruit"} component={Recruit} />
+                    <Route path={"/recruit/:id"} component={Task} />
+                </Router>
+            </div>
+        );
+    };
+}
+
+
+export default connect(null, 
+    {
+        addToShoppingList, 
+        bajs
+    })(App);

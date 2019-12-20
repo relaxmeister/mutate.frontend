@@ -7,7 +7,11 @@ const SocialMedia = (props) => {
 
     return (
         <div className={styles.first}>
-            <img style={{ width: 20, height: 20, marginRight: 20 }}src={props.album.link}/>
+            <img
+                style={{ width: 20, height: 20, marginRight: 20 }}
+                src={props.album.link}
+                alt={props.album.alt}
+                />
         </div>
     );
 }
