@@ -1,0 +1,49 @@
+.filterOptionIdle {
+    color: #fff;
+    background-color: #18191c;
+}
+
+.filterOptionIdle:hover {
+    background-color: #36393f;
+    border-color: #36393f;
+}
+
+.filterOptionSelected {
+    background-color: #fff;
+    color: #18191c;
+    -webkit-box-shadow: 0 9px 30px 0 rgba(35,38,42,.1);
+    box-shadow: 0 9px 30px 0 rgba(35,38,42,.1);
+}
+
+
+.filterOption {
+    min-width: 150px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    font-size: 16px;
+
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: 1px solid #18191c;
+    border-radius: 50px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    cursor: pointer;
+    font-size: inherit;
+    font-weight: 400;
+    margin: 4px;
+    outline: none;
+    padding: 10px 15px;
+    text-align: center;
+    -webkit-transition: background-color .1s,border-color .1s;
+    transition: background-color .1s,border-color .1s;
+    vertical-align: middle;
+}
+
+.filterOption:focus {
+    -webkit-box-shadow: 0 0 0 2px #fff, 0 0 2px 4px #00b0f4;
+    box-shadow: 0 0 0 2px #fff, 0 0 2px 4px #00b0f4;
+}

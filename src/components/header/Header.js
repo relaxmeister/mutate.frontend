@@ -35,6 +35,7 @@ class Header extends Component {
         this.state = { hamburgermenu: false };
 
         this.menuClick = this.menuClick.bind(this);
+        this.changePage = this.changePage.bind(this);
     }
 
     renderSocialmedia() {
@@ -71,13 +72,30 @@ class Header extends Component {
         } else {
             console.log("open hamburger")
             //move.style.marginLeft = "200px";
+            //move.style.visibility = "visible";
             document.body.style.overflow = "hidden"; // tar bort scroll
             console.log(move.style);
-            
+            move.style.transition = "all .6s ease";
             move.style.transform = "translateX(0%)"; 
             this.setState({ hamburgermenu: true })
         }
 
+    }
+
+    changePage(event) {
+        console.log("clicked: " + event);
+        this.props.history.push(event);
+
+        //Vi vet att den _var_ öppen
+        var move = document.getElementById('sidemenu');
+        console.log("close hamburger")
+        move.style.transition = "none"
+        move.style.transform = "translateX(100%)"; 
+        //move.style.visibility = "hidden";
+        
+        console.log(move);
+        document.body.style.overflow = "visible";
+        this.setState({ hamburgermenu: false })
     }
 
 
@@ -87,7 +105,6 @@ class Header extends Component {
                 <div className={styles.first}>
                     <div className={styles.second}>
                         <div className={styles.third}>
-
                             <img
                                 src={logo}
                                 className={styles.logo}
@@ -112,7 +129,7 @@ class Header extends Component {
                     </div>
                 </div>
                 {/*this.renderModal()*/}
-                <HamburgerMenu menuToggle={this.menuClick} />
+                <HamburgerMenu menuToggle={this.menuClick} pageClick={this.changePage} />
             </div>
         );
     }

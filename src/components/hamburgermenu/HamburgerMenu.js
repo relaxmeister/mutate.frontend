@@ -6,10 +6,16 @@ import styles from './style.module.css';
 
 import TagListItem from '../taglistitem/TagListItem';
 
-import logo from '../../assets/icons/mutate-logo.png';
-import menuToggle from '../../assets/icons/menu-button.png';
+import logo from '../../assets/icons/mutate-logoBLACK.png';
+import close from '../../assets/icons/close.png';
 
 var move = document.getElementById('sidemenu');
+
+const navigationList = [
+    { namn: "Download your copy of Mutate", link: "/download" },
+    { namn: "Find out more about Mutate", link: "/about" },
+    { namn: "Want to work at Mutate?", link: "/recruit" },
+]
 
 class HamburgerMenu extends Component {
     //const { namn, link } = album;
@@ -24,6 +30,14 @@ class HamburgerMenu extends Component {
         //move.style.marginLeft = "200px";
     }
 
+    renderListItems() {
+        return navigationList.map(e =>
+            <il key={e.namn} className={styles.listItem}>
+                <Link className={styles.linkFeatures} onClick={() => this.props.pageClick(e.link)} /*to={e.link}*/>{e.namn}</Link>
+            </il>
+        );
+    }
+
     render() {
         return (
             <div id={"sidemenu"} className={styles.modalWrapper}>
@@ -34,18 +48,22 @@ class HamburgerMenu extends Component {
                             className={styles.logo}
                             alt="logo"
                             onClick={() => {
-                                console.log("clicked!!");
-                                this.props.history.push("/");
+                                this.props.pageClick('/');
                             }} />
                         <img
-                            src={menuToggle}
+                            src={close}
                             className={styles.menuToggle}
                             alt="hamburgermenu"
                             onClick={this.props.menuToggle}
                         />
                     </div>
+                    <div className={styles.navigationScroller}>
+                        <ul className={styles.navList}>
+                            {this.renderListItems()}
+                        </ul>
+                    </div>
                     <div className={styles.bottomContainer}>
-
+                        <Link className={styles.button_get_app} onClick={() => this.props.pageClick("/download")} >Download zeh good stuff</Link>
                     </div>
                 </div>
             </div>

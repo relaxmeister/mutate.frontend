@@ -1,6 +1,7 @@
 import {
     JOBS_FETCH_SUCCESS,
     JOBS_FETCH_FAIL,
+    FILTER_BY_FIELD,
     LOGIN_USER
 } from './types';
 
@@ -25,8 +26,8 @@ export const addToShoppingList = () => {
     };
 };
 
-export const bajs = () => {
-    console.log("bajsEngaged")
+export const reduxAPIFetchJobs = () => {
+    console.log("reduxAPIFetchJobs")
     return (dispatch) => {
         fetch("http://localhost:8080/", {
             method: "GET",
@@ -44,6 +45,13 @@ export const bajs = () => {
             console.log("json: " + result);
             dispatch({ type: JOBS_FETCH_SUCCESS, payload: result });
             return result;
-        }).catch(err => console.log(err));
+        }).catch(err => console.log("ejjoj: " + err));
     }
 }
+
+export const filterBySpecifics = (inparam) => (
+    {
+        type: FILTER_BY_FIELD,
+        payload: inparam
+    }
+);

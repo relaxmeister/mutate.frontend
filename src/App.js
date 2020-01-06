@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { bajs, addToShoppingList } from '../src/store/actions/index';
+import { reduxAPIFetchJobs, addToShoppingList } from '../src/store/actions/index';
 
 import Header from './components/header/Header';
 import Home from './screens/home/Home';
@@ -11,13 +11,14 @@ import About from './screens/about/About';
 import Task from './screens/task/Task';
 
 const HeaderHOCComponent = withRouter((props) => <Header {...props} />);
+const RecruitHOCComponent = withRouter((props) => <Recruit {...props} />);
 
 class App extends Component {
 
     componentDidMount() {
         console.log("APPMOUNTED!")
         this.props.addToShoppingList();
-        this.props.bajs();
+        this.props.reduxAPIFetchJobs();
         fetch("http://localhost:8080/", {
             method: "GET",
             headers: {
@@ -47,7 +48,7 @@ class App extends Component {
                     <Route path={"/"} exact component={Home} />
                     <Route path={"/download"} exact component={Download} />
                     <Route path={"/about"} exact component={About} />
-                    <Route exact path={"/recruit"} component={Recruit} />
+                    <Route exact path={"/recruit"} component={RecruitHOCComponent} />
                     <Route path={"/recruit/:id"} component={Task} />
                 </Router>
             </div>
@@ -59,5 +60,5 @@ class App extends Component {
 export default connect(null, 
     {
         addToShoppingList, 
-        bajs
+        reduxAPIFetchJobs
     })(App);

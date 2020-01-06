@@ -2,28 +2,40 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getJobsOpening } from '../../services/api/ApiService';
+import { filterBySpecifics } from '../../store/actions/index';
 
 import styles from './style.module.css';
 
 import JobOpeningCard from '../../components/jobopeningcard/JobOpeningCard';
+import FilterButton from '../../components/filterbutton/FilterButton';
 
 class Recruit extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            jobOpenings: []
+            jobOpenings: [],
+            checkedBox: 'All Openings',
         }
+
+        this.changeCheckBox = this.changeCheckBox.bind(this);
+        console.log("checkedbox: " + this.state.checkedBox);
     }
 
     //Vill sannolikt lägga in någon typ av filtrering för att komma i kontakt med state för
     //utmaningens skull
     componentDidMount() {
-        getJobsOpening().then((jobs) => {
-            this.setState({
-                jobOpenings: jobs
-            })
-        });
+        // getJobsOpening().then((jobs) => {
+        //     this.setState({
+        //         jobOpenings: jobs
+        //     })
+        // });
+
+        this.setState({
+            jobOpenings: this.props.job.jobs
+        })
+
+        console.log("jobopeningens: " + this.state.jobOpenings)
         window.scrollTo(0, 0);
 
     }
@@ -32,6 +44,7 @@ class Recruit extends Component {
     }
 
     renderOpenPositions() {
+        
         // if (true) {
         //     return this.state.jobOpenings.map(e => <JobOpeningCard key={e.id} album={e} />);
         //     //return this.props.job.jobs.map(e => <JobOpeningCard key={e.id} album={e} />);
@@ -42,7 +55,33 @@ class Recruit extends Component {
             console.log("joblist: " + this.props.job.jobs);
             return this.props.job.jobs.sort((a, b) => a.id - b.id).map(e => <JobOpeningCard key={e.id} album={e} />);
         }//Vill antagligen ha ett errortest i samband med detta (success/error/no jobs)
-        return <div>There are currently no open positions :(</div>
+        // if (this.state.jobOpenings !== null) {
+        //     console.log("joblist: " + this.state.jobOpenings);
+        //     return this.state.jobOpenings.sort((a, b) => a.id - b.id).map(e => <JobOpeningCard key={e.id} album={e} />);
+        // }//Vill antagligen ha ett errortest i samband med detta (success/error/no jobs)
+        return <div className={styles.noJobs}>There are currently no open positions :(</div>
+    }
+
+    changeCheckBox(checkboxName) {
+        this.setState({
+            checkedBox: checkboxName
+        }, () => {
+            this.handleChangeCheckBox(checkboxName);
+            this.props.filterBySpecifics(checkboxName);
+            console.log(this.props.filterBySpecifics(checkboxName));
+            console.log(this.props.job.jobs);
+            //this.props.job.jobs.filter(e => e.role !== checkboxName);
+            //console.log(checkboxName)
+            //console.log(this.props.job.jobs.filter(e => e.field === checkboxName));
+        })
+    }
+
+    handleChangeCheckBox(checkboxName) {
+        if (this.state.checkedBox === 'All Openings') {
+            this.props.history.push("/recruit");
+        } else {
+            this.props.history.push(`${"?team=" + checkboxName.toLowerCase()}`);
+        }
     }
 
     render() {
@@ -69,8 +108,25 @@ class Recruit extends Component {
                         </p>
                     </div>
                 </div>
+                <div className={`${styles.flex} ${styles.flexHorizontal} ${styles.flexJustifyCenter} ${styles.flexAlignCenter} ${styles.flexWrap} ${styles.filterWrap}`}>
+                        <div className={styles.buttonWrapOuter}>
+                            <div
+                                className={styles.buttonWrap} /*tabIndex={-1} whats the deal? blir klickable t.t*/
+                                role={"radiogroup"}
+                                aria-labelledby={"jobs_filter"}
+                            >
+
+                                <FilterButton text={"All Openings"} isBoxChecked={this.state.checkedBox} changeCheckBox={this.changeCheckBox} />
+                                <div className={styles.divider} />
+                                <FilterButton text={"Design"} isBoxChecked={this.state.checkedBox} changeCheckBox={this.changeCheckBox} />
+                                <FilterButton text={"Engineering"} isBoxChecked={this.state.checkedBox} changeCheckBox={this.changeCheckBox} />
+                                <FilterButton text={"Data"} isBoxChecked={this.state.checkedBox} changeCheckBox={this.changeCheckBox} />
+                            </div>
+                        </div>
+                    </div>
                 <div className={styles.jobsContainer}>
-                    <p className={styles.jobHeader}>Open Positions</p>
+                    
+                    
                     <div className={styles.selectionWrapper}>
                         <div className={styles.widthDefault}>
                             <div className={styles.flexHorizont}>
@@ -94,4 +150,6 @@ const mapStateToProps = (state) => ({
     job: state.job,
 });
 
-export default connect(mapStateToProps)(Recruit);
+export default connect(mapStateToProps, {
+    filterBySpecifics,
+})(Recruit);

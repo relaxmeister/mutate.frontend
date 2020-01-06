@@ -65,15 +65,42 @@ const formData = {
 
 class Task extends Component {
 
-    state = { modal: false, formData: formData, jobData: undefined }
+    state = { modal: false, formData: formData, jobData: undefined, realJob: undefined }
 
     componentDidMount() {
-        const id = parseInt(this.props.match.params.id, 10);
+        fetch(`http://localhost:8080/recruit/${this.props.match.params.id}`, {
+            method: "GET",
+            headers: {
+                'Access-Control-Allow-Origin': '*'
+            }
+        }).then(async response => {
+            if (response.status >= 200 && response.status < 300) {
+
+                //console.log("successjbobobjob!");
+                //console.log(response.json());
+                return response.json();
+            } else {
+                console.log("something went wrong with GETJOBS");
+            }
+        }).then(result => {
+            console.log(result);
+            this.setState({
+                jobData: result
+            })
+            this.setState({
+                ...this.state.formData,
+                job: result.role
+            })
+            console.log(this.state.formData);
+            return result;
+        }).catch(err => err);
+
+        /*const id = parseInt(this.props.match.params.id, 10);
         getJobDetails(id).then((jobData) => {
             this.setState({
                 jobData: jobData
             })
-        });
+        });*/
         window.scrollTo(0, 0);
         const newFormData = {
             ...formData,
@@ -82,38 +109,58 @@ class Task extends Component {
         //this.setState({ lastNameError: undefined })
         //this.props.onFormChange(newFormData)
 
-        this.setState({ 
+        this.setState({
             modal: false,
 
         });
     }
 
-    renderJobDescription() {
+    renderRole() {
+        if (this.state.jobData !== undefined) {
+                return this.state.jobData.role;
+        }
+    }
 
+    renderJobDescription() {
+        if (this.state.jobData !== undefined) {
+            return this.state.jobData.jobDescription.map(e => {
+                return (
+                    <div key={e} className={styles.stycke}>
+                        {e}
+                    </div>
+                );
+            })
+        }
     }
 
     renderDoing() {
-        return dummyTask.doing.map(e => {
-            return (
-                <li key={e}>{e}</li>
-            );
-        })
+        if (this.state.jobData !== undefined) {
+            return this.state.jobData.doing.map(e => {
+                return (
+                    <li key={e}>{e}</li>
+                );
+            })
+        }
     }
 
     renderShouldHave() {
-        return dummyTask.shouldHave.map(e => {
-            return (
-                <li key={e}>{e}</li>
-            );
-        })
+        if (this.state.jobData !== undefined) {
+            return this.state.jobData.shouldHave.map(e => {
+                return (
+                    <li key={e}>{e}</li>
+                );
+            })
+        }
     }
 
     renderBonus() {
-        return dummyTask.bonus.map(e => {
-            return (
-                <li key={e}>{e}</li>
-            );
-        })
+        if (this.state.jobData !== undefined) {
+            return this.state.jobData.bonus.map(e => {
+                return (
+                    <li key={e}>{e}</li>
+                );
+            })
+        }
     }
 
 
@@ -122,7 +169,7 @@ class Task extends Component {
             return (
                 <ApplicationForm
                     onModalClose={this.modalCloseHandler.bind(this)}
-                    onFormChange={(form) => this.setState({formData: form})}
+                    onFormChange={(form) => this.setState({ formData: form })}
                     formData={this.state.formData}
                 />
             );
@@ -135,6 +182,7 @@ class Task extends Component {
     }
 
     render() {
+        console.log("realjob: " + this.state.realJob);
         return (
             <div className={styles.first}>
                 <div className={styles.pageSelection}>
@@ -147,17 +195,9 @@ class Task extends Component {
                                     </div>
                                 </div>
                                 <div className={styles.jobTextFlex}>
-                                    <h3>{this.state.jobData !== undefined ? this.state.jobData.title : "?"}</h3>
+                                    <h3>{this.renderRole()}</h3>
                                     <div>
-                                        <div className={styles.stycke}>
-                                            You will develop a desktop client application based on Electron.
-                                            You will be taking on a role as frontend lead where scalability is important to you,
-                                            developing a codebase that can scale to a large number of developers.
-                                            You will work with designers and together implement the visual and functional aspects of our client.
-                                        </div>
-                                        <div className={styles.stycke}>
-                                            Lead our Data Platform team to build a scalable data platform that powers features and informs teams. Help us build scalable distributed systems like you'd construct additional pylons in your base. You build those in your sleep, amirite?
-                                        </div>
+                                        {this.renderJobDescription()}
                                     </div>
                                     <Link to={"/recruit"}>
                                         <div className={styles.backToRecruitButton}>

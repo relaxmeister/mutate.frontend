@@ -63,6 +63,76 @@
     line-height: 1.6666666666666667;
 }
 
+.flex {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.flexWrap {
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+.flexVertical {
+
+}
+
+.flexJustifyCenter {
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+
+.flexAlignCenter {
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.flexHorizontal {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+}
+
+.filterWrap {
+    margin: 26px 10px -4px;
+    /*font-size: 18px;*/
+    position: relative;
+    max-width: 1440px;
+    /*min-width: 1080px;*/
+    width: 100%;
+
+    flex: 1 1 auto;
+}
+
+.buttonWrapOuter {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 25px 0;
+    text-align: center;
+}
+
+.buttonWrapOuter .buttonWrap {
+    display: inline-block; /* divider lägger sig korrekt, skiljer sig från inline-flex */
+}
+
+.divider {
+    background-color: rgba(46,55,87,.24);
+    display: inline-block;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+    height: 40px;
+    margin: 0 11px;
+    width: 2px;
+    vertical-align: middle;
+}
+
 .jobsContainer {
     display: flex;
     flex-direction: column;
@@ -123,6 +193,13 @@
     
 }
 
+.jobCardsFlexWrapper .noJobs {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    width: 100%;
+}
+
 /* Discord jobbbakgrund */
 .sectionJobs-34F39V { 
     background-attachment: scroll,fixed;
@@ -135,6 +212,40 @@
     font-weight: 400;
     min-height: 550px;
     width: 100%;
+}
+
+@media only screen and (max-width: 1080px) {
+    .buttonWrapOuter {
+        background-color: #f8f9fd;
+        border-bottom: 1px solid rgba(220,221,222,.54);
+        border-top: 1px solid rgba(220,221,222,.54);
+        width: 100vw;
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding: 16px 20px;
+        white-space: nowrap;
+    }
+
+    .filterWrap {
+        max-height: 100px;
+        margin: 20px 0 0;
+        /*max-width: auto;
+        min-width: auto;
+        utgör sidoförstoringen*/
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 850px) {
+    .jobsContainer .selectionWrapper .widthDefault .flexHorizont {
+        margin-left: 0px;
+        margin-right: 0px;
+
+    }
+    .jobsContainer .selectionWrapper .widthDefault {
+        padding: 0 0.46666667%;
+        
+    }
 }
 
 @media only screen and (max-width: 600px) {
@@ -164,17 +275,7 @@
     }
 }
 
-@media only screen and (max-width: 850px) {
-    .jobsContainer .selectionWrapper .widthDefault .flexHorizont {
-        margin-left: 0px;
-        margin-right: 0px;
 
-    }
-    .jobsContainer .selectionWrapper .widthDefault {
-        padding: 0 0.46666667%;
-        
-    }
-}
 
 @media only screen and (max-width: 560px) {
     .informationContainer .aboutMutate { /* skulle kunna vara en bild/ikon istället */
