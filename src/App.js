@@ -57,8 +57,8 @@ class App extends Component {
 }
 
 
-export default connect(null, 
+export default connect(null,
     {
-        addToShoppingList, 
+        addToShoppingList,
         reduxAPIFetchJobs
     })(App);
