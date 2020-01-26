@@ -58,6 +58,7 @@ class Header extends Component {
 
     menuClick() {
 
+        //Maninupelar DOM direkt, funkar men inte optimalt, men vad är då alt?
         var move = document.getElementById('sidemenu');
 
         if (this.state.hamburgermenu === true) {

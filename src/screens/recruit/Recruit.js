@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getJobsOpening } from '../../services/api/ApiService';
-import { filterBySpecifics } from '../../store/actions/index';
 
 import styles from './style.module.css';
 
@@ -44,7 +43,7 @@ class Recruit extends Component {
     }
 
     renderOpenPositions() {
-        
+
         // if (true) {
         //     return this.state.jobOpenings.map(e => <JobOpeningCard key={e.id} album={e} />);
         //     //return this.props.job.jobs.map(e => <JobOpeningCard key={e.id} album={e} />);
@@ -53,7 +52,11 @@ class Recruit extends Component {
         // }
         if (this.props.job.jobs !== null) {
             console.log("joblist: " + this.props.job.jobs);
-            return this.props.job.jobs.sort((a, b) => a.id - b.id).map(e => <JobOpeningCard key={e.id} album={e} />);
+            if (this.state.checkedBox === "All Openings") {
+                return this.props.job.jobs.sort((a, b) => a.id - b.id).map(e => <JobOpeningCard key={e.id} album={e} />);
+            } else {
+                return this.props.job.jobs.sort((a, b) => a.id - b.id).filter(e => e.field === this.state.checkedBox).map(e => <JobOpeningCard key={e.id} album={e} />);
+            }
         }//Vill antagligen ha ett errortest i samband med detta (success/error/no jobs)
         // if (this.state.jobOpenings !== null) {
         //     console.log("joblist: " + this.state.jobOpenings);
@@ -67,12 +70,6 @@ class Recruit extends Component {
             checkedBox: checkboxName
         }, () => {
             this.handleChangeCheckBox(checkboxName);
-            this.props.filterBySpecifics(checkboxName);
-            console.log(this.props.filterBySpecifics(checkboxName));
-            console.log(this.props.job.jobs);
-            //this.props.job.jobs.filter(e => e.role !== checkboxName);
-            //console.log(checkboxName)
-            //console.log(this.props.job.jobs.filter(e => e.field === checkboxName));
         })
     }
 
@@ -109,24 +106,24 @@ class Recruit extends Component {
                     </div>
                 </div>
                 <div className={`${styles.flex} ${styles.flexHorizontal} ${styles.flexJustifyCenter} ${styles.flexAlignCenter} ${styles.flexWrap} ${styles.filterWrap}`}>
-                        <div className={styles.buttonWrapOuter}>
-                            <div
-                                className={styles.buttonWrap} /*tabIndex={-1} whats the deal? blir klickable t.t*/
-                                role={"radiogroup"}
-                                aria-labelledby={"jobs_filter"}
-                            >
+                    <div className={styles.buttonWrapOuter}>
+                        <div
+                            className={styles.buttonWrap} /*tabIndex={-1} whats the deal? blir klickable t.t*/
+                            role={"radiogroup"}
+                            aria-labelledby={"jobs_filter"}
+                        >
 
-                                <FilterButton text={"All Openings"} isBoxChecked={this.state.checkedBox} changeCheckBox={this.changeCheckBox} />
-                                <div className={styles.divider} />
-                                <FilterButton text={"Design"} isBoxChecked={this.state.checkedBox} changeCheckBox={this.changeCheckBox} />
-                                <FilterButton text={"Engineering"} isBoxChecked={this.state.checkedBox} changeCheckBox={this.changeCheckBox} />
-                                <FilterButton text={"Data"} isBoxChecked={this.state.checkedBox} changeCheckBox={this.changeCheckBox} />
-                            </div>
+                            <FilterButton text={"All Openings"} isBoxChecked={this.state.checkedBox} changeCheckBox={this.changeCheckBox} />
+                            <div className={styles.divider} />
+                            <FilterButton text={"Design"} isBoxChecked={this.state.checkedBox} changeCheckBox={this.changeCheckBox} />
+                            <FilterButton text={"Engineering"} isBoxChecked={this.state.checkedBox} changeCheckBox={this.changeCheckBox} />
+                            <FilterButton text={"Data"} isBoxChecked={this.state.checkedBox} changeCheckBox={this.changeCheckBox} />
                         </div>
                     </div>
+                </div>
                 <div className={styles.jobsContainer}>
-                    
-                    
+
+
                     <div className={styles.selectionWrapper}>
                         <div className={styles.widthDefault}>
                             <div className={styles.flexHorizont}>
@@ -150,6 +147,4 @@ const mapStateToProps = (state) => ({
     job: state.job,
 });
 
-export default connect(mapStateToProps, {
-    filterBySpecifics,
-})(Recruit);
+export default connect(mapStateToProps, {})(Recruit);

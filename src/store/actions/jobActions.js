@@ -1,7 +1,6 @@
 import {
     JOBS_FETCH_SUCCESS,
     JOBS_FETCH_FAIL,
-    FILTER_BY_FIELD,
     LOGIN_USER
 } from './types';
 
@@ -48,10 +47,3 @@ export const reduxAPIFetchJobs = () => {
         }).catch(err => console.log("ejjoj: " + err));
     }
 }
-
-export const filterBySpecifics = (inparam) => (
-    {
-        type: FILTER_BY_FIELD,
-        payload: inparam
-    }
-);
