@@ -17,7 +17,7 @@ const JobOpeningCard = ({ album, history }) => {
         if (field === 'Design') {
             return <img className={styles.fieldImg} src={babyImg} alt="placeholder"/>
         }
-        if (field === 'Engineer') {
+        if (field === 'Engineering') {
             return <img className={styles.fieldImg} src={engineerImg} alt="placeholder"/>
         }
         if (field === 'Working Class Hero') {

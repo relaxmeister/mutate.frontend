@@ -1,0 +1,114 @@
+.featureWrapper {
+    display: flex;
+    flex-direction: row;
+}
+
+.iconSection {
+    flex: 1 7%;
+}
+
+.featureIconContainer {
+    height: 17px;
+    width: 17px;
+    margin: 2px 10px 0 0;
+    display: block;
+    padding: 4px;
+    /*background: transparent url(images/desktop/zz-icon-sprite-30x30-each.7542151….png) no-repeat 0 0;*/
+}
+
+.featureIconContainer > img {
+    height: 100%;
+}
+
+.featureContent {
+    flex: 1 100%;
+}
+
+.contentHeader {
+    font-size: 18px;
+    font-weight: 400;
+    margin: 0;
+    margin-bottom: 5px;
+    line-height: 20px;
+}
+
+.contentText {
+    font-size: 15px;
+    margin: 0;
+}
+
+.featureDivider {
+    margin: 40px auto;
+    display: none;
+    height: 1px;
+    width: 100%;
+    /*background: rgba(255,255,255,0.2);*/
+    background: rgba(0,0,0,0.2);
+}
+
+@media (min-width: 1200px) {
+    .featureDivider {
+        margin: 50px auto;
+    }
+}
+
+@media (max-width: 991px) { /* pga unreliable classNames går det inte att ärva riktigt :/ */
+    .featureWrapper {
+        padding: 15px 25px;
+        margin-bottom: 5px;
+        background: rgba(255,171,0,0.1); /* default */
+    }
+    .gamesFeature {
+        background: rgba(255,171,0,0.1);
+    }
+
+    .socialFeature {
+        background: rgba(0,0,0,0.2);
+    }
+    .shopFeature {
+
+    }
+    
+
+}
+
+@media (max-width: 991px) and (min-width: 480px) {
+    .contentHeader {
+        font-size: 22px;
+        font-weight: 300;
+        line-height: inherit;
+    }
+    .featureIconContainer {
+        margin: 2px auto 0;
+    }
+}
+
+@media (min-width: 992px) {
+    .contentHeader {
+        font-size: 32px;
+        font-weight: 300;
+        line-height: 37px;
+    }
+
+    .featureContent {
+        padding-left: 15px;
+    }
+
+    .featureDivider {
+        display: block;
+    }
+}
+
+@media (min-width: 768px) {
+    .contentText {
+        font-size: 16px;
+        margin-top: 15px;
+    }
+}
+
+@media (min-width: 480px) {
+    .featureIconContainer {
+        height: 30px;
+        width: 30px;
+    }
+}

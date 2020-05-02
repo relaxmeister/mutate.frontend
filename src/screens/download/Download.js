@@ -1,333 +1,278 @@
-import React, { useState, useEffect } from 'react';
-import $ from 'jquery';
+import React, { useState, useEffect } from "react";
+import $ from "jquery";
 
-import styles from './style.module.css';
+import styles from "./style.module.css";
 
-import logo from '../../assets/icons/baby.png';
-import pic1 from '../../assets/imgs/satisfactory.png';
-import pic2 from '../../assets/imgs/playerunknown.png';
-import pic3 from '../../assets/imgs/shadowgun.png';
-import pic4 from '../../assets/imgs/flame.png';
+import ImageCarousel from "../../components/imagecarousel/ImageCarousel";
+import PaneFeature from "../../components/panefeature/PaneFeature";
 
-const picArr = [
-    pic1, pic2, pic3
-];
+import logo from "../../assets/icons/baby.png";
+import wash from "../../assets/icons/wash.png";
+import family from "../../assets/icons/love.png";
+import search from "../../assets/icons/search.png";
+import play from "../../assets/icons/video.png";
+import warning from "../../assets/icons/warning.png";
+import phone from "../../assets/icons/whatsapp.png";
 
 const Download = () => {
+  const [platform, setPlatform] = useState("Platform");
 
-    const [platform, setPlatform] = useState("Platform");
-    var [currentNumber, setCurrentNumber] = useState(1);
-    var [isLoading, setIsLoading] = useState(false);
+  useEffect(() => {
+    var OSName = "Unknown";
+    if (window.navigator.userAgent.indexOf("Windows NT 10.0") !== -1)
+      OSName = "Windows 10";
+    if (window.navigator.userAgent.indexOf("Windows NT 6.2") !== -1)
+      OSName = "Windows 8";
+    if (window.navigator.userAgent.indexOf("Windows NT 6.1") !== -1)
+      OSName = "Windows 7";
+    if (window.navigator.userAgent.indexOf("Windows NT 6.0") !== -1)
+      OSName = "Windows Vista";
+    if (window.navigator.userAgent.indexOf("Windows NT 5.1") !== -1)
+      OSName = "Windows XP";
+    if (window.navigator.userAgent.indexOf("Windows NT 5.0") !== -1)
+      OSName = "Windows 2000";
+    if (window.navigator.userAgent.indexOf("Mac") !== -1) OSName = "Mac/iOS";
+    if (window.navigator.userAgent.indexOf("X11") !== -1) OSName = "UNIX";
+    if (window.navigator.userAgent.indexOf("Linux") !== -1) OSName = "Linux";
 
+    setPlatform(OSName);
+  }, []);
 
-
-
-    useEffect(
-        () => {
-            setInterval(() => {
-                console.log("woopsie!")
-            }, 2000);
-        }, []);
-
-    useEffect(
-        () => {
-            var gallery = $('#gallery ul'),
-                items = gallery.find('li'),
-                len = items.length,
-                current = 1,   //the item we're currently looking 
-
-                first = items.filter(':first'),
-                last = items.filter(':last'),
-                triggers = $('button');
-            //triggers = $('button');
-
-            // 1. Cloning first and last item 
-            first.before(last.clone(true));
-            last.after(first.clone(true));
-
-
-
-
-
-            /*
-            // 2. Set button handlers 
-            triggers.on('click', function() {
-              console.log("len: " + len);
-              console.log("current: " + current); // verkar vara nyckeln
-              var cycle, delta;
-              console.log("cycle: " + cycle);
-              console.log("delta: " + delta)
-          
-              if (gallery.is(':not(:animated)')) {
-          
-                  cycle = false;
-                  delta = (this.id === "prev")? -1 : 1;
-                  // in the example buttons have id "prev" or "next" 
-          
-                  gallery.animate({ left: "+=" + (-100 * delta) }, function() {
-          
-                      current += delta;
-                      console.log("current: " + current);
-          
-                      /** 
-                       * we're cycling the slider when the the value of "current" 
-                       * variable (after increment/decrement) is 0 or when it exceeds
-                       * the initial gallery length*/
-
-            /*  
-     cycle = (current === 0 || current > len);
- 
-     if (cycle) {
-         /* we switched from image 1 to 4-cloned or 
-            from image 4 to 1-cloned *//*
-         current = (current === 0)? len : 1; 
-         console.log("slutfas: " + current)
-         gallery.css({left:  -100 * current });
-     }
- });   
-}
- 
-});*/
-
-
-        }, []);
-
-    useEffect(
-        () => {
-            var OSName = "Unknown";
-            if (window.navigator.userAgent.indexOf("Windows NT 10.0") !== -1) OSName = "Windows 10";
-            if (window.navigator.userAgent.indexOf("Windows NT 6.2") !== -1) OSName = "Windows 8";
-            if (window.navigator.userAgent.indexOf("Windows NT 6.1") !== -1) OSName = "Windows 7";
-            if (window.navigator.userAgent.indexOf("Windows NT 6.0") !== -1) OSName = "Windows Vista";
-            if (window.navigator.userAgent.indexOf("Windows NT 5.1") !== -1) OSName = "Windows XP";
-            if (window.navigator.userAgent.indexOf("Windows NT 5.0") !== -1) OSName = "Windows 2000";
-            if (window.navigator.userAgent.indexOf("Mac") !== -1) OSName = "Mac/iOS";
-            if (window.navigator.userAgent.indexOf("X11") !== -1) OSName = "UNIX";
-            if (window.navigator.userAgent.indexOf("Linux") !== -1) OSName = "Linux";
-
-            setPlatform(OSName);
-        },
-        [],
-    );
-
-    useEffect(
-        () => {
-            // do something
-            if (isLoading === true) { //allt detta verkar helt nödvändigt 1.för att inte köras dubbelt osv
-                var gallery = $('#gallery ul');
-                console.log("slutfas: " + currentNumber)
-                gallery.css({ left: -100 * currentNumber });
-                setIsLoading(false);
+  const apiDownload = () => {
+    fetch("//localhost:8080/download?platform=windoes", {
+            method: "GET",
+            headers: {
+                'Access-Control-Allow-Origin': '*'
             }
-        },
-        [isLoading],
-    );
+        }).then(async response => {
+            if (response.status >= 200 && response.status < 300) {
 
+                console.log("successjbobobjob!");
+                //console.log(response.json());
+                return response.json();
+            } else {
+                console.log("something went wrong with GETJOBS");
+            }
+        }).then(json => {
+            console.log(json);
+            return json;
+        }).catch(err => err);
+        //funkar
+  }
 
-    const onClickers = (event) => {
-        console.log(event.currentTarget.id);
-
-        var gallery = $('#gallery ul'),
-            items = gallery.find('li'),
-            len = items.length - 2; //denna räknar efter 2 kloner skapats, finns säkert bättre sätt
-        //current = 1;
-        //cycle, 
-        //delta;   //the item we're currently looking 
-        var cycle, delta;
-
-        console.log("len: " + len);
-        console.log("currentNumber: " + currentNumber); // verkar vara nyckeln
-        var cycle, delta;
-        console.log("cycle: " + cycle);
-        console.log("delta: " + delta)
-
-        if (gallery.is(':not(:animated)')) {
-
-            cycle = false;
-            delta = (event.currentTarget.id === "prev") ? -1 : 1;
-            // in the example buttons have id "prev" or "next" 
-
-            gallery.animate({ left: "+=" + (-100 * delta) }, function () {
-
-                setCurrentNumber(currentNumber += delta);
-                console.log(currentNumber);
-                //current += delta;
-
-                /* 
-                 * we're cycling the slider when the the value of "current" 
-                 * variable (after increment/decrement) is 0 or when it exceeds
-                 * the initial gallery length*/
-
-                cycle = (currentNumber === 0 || currentNumber > len);
-
-                if (cycle) {
-                    /* we switched from image 1 to 4-cloned or 
-                       from image 4 to 1-cloned */
-                    setCurrentNumber((currentNumber === 0) ? len : 1);
-                    console.log("slutfas: " + currentNumber)
-                    //gallery.css({ left: -100 * currentNumber });
-                    setIsLoading(true);
-                }
-            });
-        }
-
-    }
-    /*
-    $(function() {
- 
-        var gallery = $('#gallery ul'),
-            items   = gallery.find('li'),
-            len     = items.length,
-            current = 1,   //the item we're currently looking 
-      
-            first   = items.filter(':first'),
-            last    = items.filter(':last'),
-      
-            triggers = $('button');
-      
-        /* 1. Cloning first and last item 
-        first.before(last.clone(true)); 
-        last.after(first.clone(true)); 
-      
-        /* 2. Set button handlers 
-        triggers.on('click', function() {
-      
-          var cycle, delta;
-      
-          if (gallery.is(':not(:animated)')) {
-      
-              cycle = false;
-              delta = (this.id === "prev")? -1 : 1;
-              /* in the example buttons have id "prev" or "next" 
-      
-              gallery.animate({ left: "+=" + (-100 * delta) }, function() {
-      
-                  current += delta;
-      
-                  /** 
-                   * we're cycling the slider when the the value of "current" 
-                   * variable (after increment/decrement) is 0 or when it exceeds
-                   * the initial gallery length
-                            
-                  cycle = (current === 0 || current > len);
-      
-                  if (cycle) {
-                      /* we switched from image 1 to 4-cloned or 
-                         from image 4 to 1-cloned 
-                      current = (current === 0)? len : 1; 
-                      gallery.css({left:  -100 * current });
-                  }
-              });   
-           }
-      
-        });
-      });*/
-
-    const reply_click = () => { //ett försök till JS från Jquery, en riktig reactlösning är betydligt större
-        var clicker = document.getElementById('gallery');
-        var realGal = document.querySelectorAll('#gallery>ul');
-        //var lis = document.getElementById("navbar").getElementsByTagName("li");
-        clicker.style.backgroundColor = "red";
-        var list = clicker.getElementsByTagName("li");
-        console.log(clicker);
-        console.log(realGal);
-        console.log(list);
-        //var items   = clicker.find('li');
-        //var len     = items.length;
-        var current = 1;   //the item we're currently looking 
-
-        //var first = list.filter(':first');
-        //(var last = list.filter(':last');
-        var firstItem = list[0];
-        var cln1 = firstItem.cloneNode(true);
-        console.log(firstItem)
-        console.log("clone: " + cln1)
-        var last = list[list.length - 1];
-        var cln2 = last.cloneNode(true);
-        console.log(document.querySelectorAll("ul > li:first-child"))
-
-        //list.insertBefore(last, list.childNodes[0]);
-        document.getElementById('realGall').appendChild(cln1);
-        document.getElementById('realGall').insertBefore(cln2, list[0]);
-
-        // Cloning first and last item 
-        //first.before(last.clone(true)); 
-        //last.after(first.clone(true)); 
-    }
-
-
-    return (
-        <div className={styles.pageContainer}>
-            <div className={styles.downloadContainer}>
-                <div className={styles.downloadWrapper}>
-                    <div className={styles.downloadInfo}>
-                        <div className={styles.downloadTitle}>Hämta Mutate App för {platform}</div>
-                        <div className={styles.downloadSlogan}>Get straight (or gay) into the action</div>
-                        <div className={styles.featureContainer}>
-                            <img
-                                src={logo}
-                                className={styles.logo}
-                                alt="logo"
-                                onClick={() => {
-                                    console.log("clicked!!");
-                                    //this.props.history.push("/");
-                                }} />
-                            <span className={styles.featureText}>Your games in one place</span>
-                        </div>
-                        <div className={styles.featureContainer}>
-                            <img
-                                src={logo}
-                                className={styles.logo}
-                                alt="logo"
-                                onClick={() => {
-                                    console.log("clicked!!");
-                                    //this.props.history.push("/");
-                                }} />
-                            <span className={styles.featureText}>Connect with friends</span>
-                        </div>
-                        <a
-                            href="//discordapp.com/api/download?platform=win"
-                            alt="download mutate"
-                            className={styles.downloadButton}
-                        >
-                            Ladda ned nu!
-                        </a>
-                    </div>
-                    <div id={styles.penis}></div>
-                    <div className={styles.downloadPictures} id="para">
-
-                        <label for="overflow">This checkbox toggles <b>overflow: hidden</b> property on the gallery <br /> to see the effect when a mask is applied:</label>
-                        <input type="checkbox" id={styles.overflow} />
-
-                        <div className={styles.gallery} id={"gallery"}>
-
-                            <ul id={"realGall"}>
-                                <li><img src={pic1} /></li>
-                                <li><img src={pic2} /></li>
-                                <li><img src={pic3} /></li>
-                                <li><img src={pic4} /></li>
-                            </ul>
-
-                        </div>
-
-                        <button
-                            onClick={(event) => onClickers(event)}
-                            //onClick={(event) => console.log(event.currentTarget.id)}
-                            className={styles.tempButton}
-                            type="button"
-                            id="prev">&laquo;</button>
-                        <button
-                            onClick={(event) => onClickers(event)}
-                            className={styles.tempButton}
-                            type="button"
-                            id="next">&raquo;</button>
-                    </div>
-
-                </div>
-
+  return (
+    <div className={styles.pageContainer}>
+      <div className={styles.downloadContainer}>
+        <div className={styles.downloadWrapper}>
+          <div className={styles.downloadInfo}>
+            <div className={styles.downloadTitle}>
+              Hämta Mutate App för {platform}
             </div>
+            <div className={styles.downloadSlogan}>
+              Get straight into the action
+            </div>
+            <div className={styles.featureWrapper}>
+              <div className={styles.featureContainer}>
+                <img
+                  src={logo}
+                  className={styles.logo}
+                  alt="logo"
+                  onClick={() => {
+                    console.log("clicked!!");
+                    //this.props.history.push("/");
+                  }}
+                />
+                <span className={styles.featureText}>
+                  Your games in one place
+                </span>
+              </div>
+              <div className={styles.featureContainer}>
+                <img
+                  src={logo}
+                  className={styles.logo}
+                  alt="logo"
+                  onClick={() => {
+                    console.log("clicked!!");
+                    //this.props.history.push("/");
+                  }}
+                />
+                <span className={styles.featureText}>
+                  Your games in one place
+                </span>
+              </div>
+              <div className={styles.featureContainer}>
+                <img
+                  src={logo}
+                  className={styles.logo}
+                  alt="logo"
+                  onClick={() => {
+                    console.log("clicked!!");
+                    //this.props.history.push("/");
+                  }}
+                />
+                <span className={styles.featureText}>Connect with friends</span>
+              </div>
+            </div>
+            <a
+              //href="//discordapp.com/api/download?platform=win"
+              href={`//localhost:8080/download?platform=${platform}`}
+              //href=""
+              //download="//localhost:8080/download?platform=windoes"
+              alt="download mutate"
+              className={styles.downloadButton}
+              //onClick={() => apiDownload()}
+            >
+              Ladda ned nu!
+            </a>
+            <div className={styles.todoPicture}>
+              <div className={styles.pictureWrapper}>
+                <ImageCarousel />
+              </div>
+            </div>
+          </div>
+          <div className={styles.downloadPictures}>
+            <div className={styles.carousel}>
+              <ImageCarousel />
+            </div>
+          </div>
         </div>
-    );
-}
+      </div>
+
+      <section className={styles.featureGames}>
+        <div className={styles.paneContent}>
+          <div className={styles.paneHeader}>Your games in one place</div>
+          <div className={styles.contentGroup}>
+            <div
+              className={`${styles.calloutPaneContent} ${styles.left}`}
+            ></div>
+            <div className={`${styles.calloutPaneContent} ${styles.right}`}>
+              <div className={styles.paneFeatureGroup}>
+                <PaneFeature
+                  //icon color #04458F
+                  feature={'games'}
+                  image={family}
+                  header={"Leave your family outside"}
+                  text={
+                    "Because you will want this all to yourself."
+                  }
+                  divider
+                />
+                <PaneFeature
+                  //icon color #04458F
+                  feature={'games'}
+                  image={warning}
+                  header={"Stay away"}
+                  text={
+                    "If you cant handle awesomeness then this is surely not something for you. Proved to be 110 percent awesome."
+                  }
+                  divider
+                />
+                <PaneFeature
+                  feature={'games'}
+                  image={search}
+                  header={'Stalk your "friends"'}
+                  text={
+                    "They keep saying they're busy? Well, now they cant hide without you being all up in their business. Go get them!"
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section className={styles.featureSocial}>
+        <div className={styles.paneContent}>
+          <div className={styles.paneHeader}>More than just software</div>
+          <div className={styles.contentGroup}>
+            <div className={`${styles.calloutPaneContent} ${styles.left}`}>
+              <PaneFeature
+                //icon color #04458F
+                feature={'social'}
+                image={wash}
+                header={"You smell"}
+                text={
+                  "We at Mutate would like to remind you of the fact that you will likely forget to shower. Perhaps its also time to care of the dishes?"
+                }
+                divider
+              />
+              <PaneFeature
+                //icon color #04458F
+                feature={'social'}
+                image={family}
+                header={"Live collaboration"}
+                text={
+                  "Bring your team together, wherever they are, and collaborate live - remote work redefined."
+                }
+                divider
+              />
+              <PaneFeature
+                //icon color #04458F
+                feature={'social'}
+                image={family}
+                header={"Creative tools"}
+                text={
+                  "Tools and workflow are organized around making things happen - what you see is what you get."
+                }
+                divider
+              />
+              <PaneFeature
+                image={family}
+                feature={'social'}
+                header={"Instant feedback"}
+                text={
+                  "Whatever you do there is no waiting - everything is done in real time."
+                }
+              />
+            </div>
+            <div className={`${styles.calloutPaneContent} ${styles.right}`}>
+              <div className={styles.paneFeatureGroup}></div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section className={styles.featureShop}>
+        <div className={styles.paneContent}>
+          <div className={styles.paneHeader}>We also sell you garbage</div>
+          <div className={styles.contentGroup}>
+            <div
+              className={`${styles.calloutPaneContent} ${styles.left}`}
+            ></div>
+            <div className={`${styles.calloutPaneContent} ${styles.right}`}>
+              <div className={styles.paneFeatureGroup}>
+                <PaneFeature
+                  //icon color #04458F
+                  feature={'shop'}
+                  image={play}
+                  header={"Play with your new toys"}
+                  text={
+                    "Cant get enough of toys you will use once!"
+                  }
+                  divider
+                />
+                <PaneFeature
+                  feature={'shop'}
+                  image={warning}
+                  header={"You might go broke"}
+                  text={
+                    "Luckily, your wallet is safe with us."
+                  }
+                  divider
+                />
+                <PaneFeature
+                  feature={'shop'}
+                  image={phone}
+                  header={"Call us whenever you want"}
+                  text={
+                    "However, dont expect us to pick up."
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+};
 
 export default Download;
