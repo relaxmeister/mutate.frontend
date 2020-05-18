@@ -2,26 +2,14 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
 import ApplicationForm from "../../components/applicationform/ApplicationForm.js";
+import LoadingCard from "../../components/loadingcard/LoadingCard";
+import ErrorCard from "../../components/errorcard/ErrorCard";
 
 import styles from "./style.module.css"; // webpacks config gör att detta är sättet att köra på
 
 import defaultImg from "../../assets/icons/policeman.png";
 import arrow from "../../assets/icons/right-arrow.png";
 import { getJobDetails } from "../../services/api/ApiService";
-
-const Text = {
-  Header: "Frontend Developer",
-  Stycke: [
-    {
-      Stycke:
-        "Join our small-but-growing Analytics team to help us better understand our users and design the best possible experience for them." +
-        "In this central role, you will partner closely with product and business teams to define goals, provide insights, and build data tools.",
-      Stycke2:
-        "Your work will support decision-making at all levels of the company and enable us to create a best-in-class communications " +
-        "platform that our millions of users and communities love."
-    }
-  ]
-};
 
 const statement =
   "Mutate strives to become a destination for passionerade people som värdesätter vårt uppdrag – att förena människor kring spel." +
@@ -33,35 +21,13 @@ const hiringProcess =
   "As part of the application process, we may ask you to take on a practical work test. " +
   "The position is full-time and permanent, and we review applications continuously.";
 
-const dummyTask = {
-  doing: [
-    "Do everything",
-    "Make me coffee",
-    "Point fingers",
-    "Blame everyone except yourself",
-    "Pretend to work",
-    "Hide from the boss"
-  ],
-  shouldHave: [
-    "3+ years of experience in developing frontend client/web applications. Working with Node.js and any modern framework such as Angular and React.js.",
-    "Experience with common front-end development tools such as Webpack, NPM, etc.",
-    "Able to work independently as well as help the organization in improving workflows and processes.",
-    "Strong understanding of user experience and interactions."
-  ],
-  bonus: [
-    "Experience with Electron, TypeScript and React.",
-    "Experience with C++ and building native modules.",
-    "Experience with CI/CD, static code analysis tools and Gitflow."
-  ]
-};
-
 const formData = {
   name: "",
   lastname: "",
   email: "",
   phone: "",
   city: "",
-  job: Text.Header,
+  job: "",
   reasoning: "",
   cv: "", // denna blir klurig
   pb: ""
@@ -72,7 +38,8 @@ class Task extends Component {
     modal: false,
     formData: formData,
     jobData: undefined,
-    realJob: undefined
+    realJob: undefined,
+    loading: true
   };
 
   componentDidMount() {
@@ -96,14 +63,22 @@ class Task extends Component {
         this.setState({
           jobData: result
         });
-        this.setState({
+
+        const newFormData = {
           ...this.state.formData,
           job: result.role
+        };
+        this.setState({
+          formData: newFormData
         });
+        this.setState({ loading: false });
         console.log(this.state.formData);
         return result;
       })
-      .catch(err => err);
+      .catch(err => {
+        this.setState({ loading: false });
+        console.log("ERROR HEHEHHEHE")
+      });
 
     /*const id = parseInt(this.props.match.params.id, 10);
         getJobDetails(id).then((jobData) => {
@@ -112,16 +87,113 @@ class Task extends Component {
             })
         });*/
     window.scrollTo(0, 0);
-    const newFormData = {
-      ...formData,
-      job: Text.Header
-    };
+
     //this.setState({ lastNameError: undefined })
     //this.props.onFormChange(newFormData)
 
     this.setState({
       modal: false
     });
+  }
+
+  renderContent() {
+    if (this.state.loading/* || !this.state.loading*/) {
+      return (
+        <>
+          <div className={styles.pageSelection}>
+            <div className={styles.pageSelectionWrapper}>
+              <div className={styles.widthDefault}>
+                <div
+                  className={`${styles.flexHorizontal} ${styles.marginTop200} ${styles.marginBottom200} ${styles.flexHelper}`}
+                >
+                  <ErrorCard />
+                </div>
+                <div
+                  style={{ height: "1px" }}
+                  // pga margin ovan :/
+                ></div>
+              </div>
+            </div>
+          </div>
+        </>
+      );
+    } else {
+      return (
+        <>
+          <div className={styles.pageSelection}>
+            <div className={styles.pageSelectionWrapper}>
+              <div className={styles.widthDefault}>
+                <div
+                  className={`${styles.flexHorizontal} ${styles.marginTop100} ${styles.jobContent}`}
+                >
+                  <div className={styles.flexChild}>
+                    <i className={styles.jobImgWrapper}>
+                      <img
+                        className={styles.fieldImg} //TODO FIXA BILD DYNAMISKT
+                        src={defaultImg}
+                        alt="placeholder"
+                      />
+                    </i>
+                  </div>
+                  <div className={styles.jobTextFlex}>
+                    <h3>{this.renderRole()}</h3>
+                    <div>{this.renderJobDescription()}</div>
+                    <Link to={"/recruit"}>
+                      <div className={styles.backToRecruitButton}>
+                        <img
+                          className={styles.arrowImg}
+                          src={arrow}
+                          alt="placeholder"
+                        />
+                        Go back to jobs
+                      </div>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className={styles.eventuellBackground}>
+            <div className={styles.pageSelection}>
+              <div className={styles.pageSelectionWrapper}>
+                <div className={styles.otherWidth}>
+                  <p className={styles.diversityStatement}>{statement}</p>
+                  <div className={styles.description}>
+                    <div>
+                      <h4 className={styles.descriptionHeader}>
+                        What you'll be doing
+                      </h4>
+                      <ul className={styles.listContainer}>
+                        {this.renderDoing()}
+                      </ul>
+                    </div>
+                    <div>
+                      <h4 className={styles.descriptionHeader}>
+                        What you should have
+                      </h4>
+                      <ul className={styles.listContainer}>
+                        {this.renderShouldHave()}
+                      </ul>
+                    </div>
+                    <div>
+                      <h4 className={styles.descriptionHeader}>Bonus Points</h4>
+                      <ul className={styles.listContainer}>
+                        {this.renderBonus()}
+                      </ul>
+                    </div>
+                  </div>
+                  <p className={styles.hiringProcess}>{hiringProcess}</p>
+                  <div onClick={() => this.setState({ modal: true })}>
+                    <div className={styles.backToRecruitButton}>Apply</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>{this.maybeRenderForm()}</div>
+        </>
+      );
+    }
   }
 
   renderRole() {
@@ -192,80 +264,8 @@ class Task extends Component {
   }
 
   render() {
-    console.log("realjob: " + this.state.realJob);
-    return (
-      <div className={styles.first}>
-        <div className={styles.pageSelection}>
-          <div className={styles.pageSelectionWrapper}>
-            <div className={styles.widthDefault}>
-              <div className={styles.flexHorizontal}>
-                <div className={styles.flexChild}>
-                  <div className={styles.jobImgWrapper}>
-                    <img
-                      className={styles.fieldImg}
-                      src={defaultImg}
-                      alt="placeholder"
-                    />
-                  </div>
-                </div>
-                <div className={styles.jobTextFlex}>
-                  <h3>{this.renderRole()}</h3>
-                  <div>{this.renderJobDescription()}</div>
-                  <Link to={"/recruit"}>
-                    <div className={styles.backToRecruitButton}>
-                      <img
-                        className={styles.arrowImg}
-                        src={arrow}
-                        alt="placeholder"
-                      />
-                      Go back to jobs
-                    </div>
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className={styles.eventuellBackground}>
-          <div className={styles.pageSelection}>
-            <div className={styles.pageSelectionWrapper}>
-              <div className={styles.otherWidth}>
-                <p className={styles.diversityStatement}>{statement}</p>
-                <div className={styles.description}>
-                  <div>
-                    <h4 className={styles.descriptionHeader}>
-                      What you'll be doing
-                    </h4>
-                    <ul className={styles.listContainer}>
-                      {this.renderDoing()}
-                    </ul>
-                  </div>
-                  <div>
-                    <h4 className={styles.descriptionHeader}>
-                      What you should have
-                    </h4>
-                    <ul className={styles.listContainer}>
-                      {this.renderShouldHave()}
-                    </ul>
-                  </div>
-                  <div>
-                    <h4 className={styles.descriptionHeader}>Bonus Points</h4>
-                    <ul className={styles.listContainer}>
-                      {this.renderBonus()}
-                    </ul>
-                  </div>
-                </div>
-                <p className={styles.hiringProcess}>{hiringProcess}</p>
-                <div onClick={() => this.setState({ modal: true })}>
-                  <div className={styles.backToRecruitButton}>Apply</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div>{this.maybeRenderForm()}</div>
-      </div>
-    );
+    console.log("formdataJob: " + this.state.formData.job);
+    return <div className={styles.first}>{this.renderContent()}</div>;
   }
 }
 

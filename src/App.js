@@ -9,9 +9,11 @@ import Recruit from './screens/recruit/Recruit';
 import Download from './screens/download/Download';
 import About from './screens/about/About';
 import Task from './screens/task/Task';
+import Auth from './screens/auth/Auth';
 
 const HeaderHOCComponent = withRouter((props) => <Header {...props} />);
 const RecruitHOCComponent = withRouter((props) => <Recruit {...props} />);
+const AuthHOCComponent = withRouter((props) => <Auth {...props} />);
 
 class App extends Component {
 
@@ -50,6 +52,7 @@ class App extends Component {
                     <Route path={"/about"} exact component={About} />
                     <Route exact path={"/recruit"} component={RecruitHOCComponent} />
                     <Route path={"/recruit/:id"} component={Task} />
+                    <Route path={["/login", "/register"]} exact component={AuthHOCComponent} />
                 </Router>
             </div>
         );

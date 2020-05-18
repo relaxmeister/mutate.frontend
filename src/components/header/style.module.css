@@ -61,7 +61,41 @@
     position: relative;*/
 }
 
-@media only screen and (max-width: 650px) {
+.button {
+    margin-left: 16px;
+}
+
+.buttonText {
+    font-weight: 400;
+    fill: rgba(0, 0, 0, 0.54);
+    color: rgba(0, 0, 0, 0.54);
+    letter-spacing: 0px;
+    font-size: 15.8px;
+    line-height: 20px;
+}
+
+.a_link {
+    padding: 0;
+    margin: 0;
+    fill: white;
+    color: white;
+    -webkit-tap-highlight-color: transparent;
+    cursor: pointer;
+}
+
+.a_link_reg {
+    padding: 0;
+    margin: 0;
+    fill: white;
+    color: white;
+    -webkit-tap-highlight-color: transparent;
+    border: solid 1px white;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 800px) {
     .first .second .headerRightContent .socialmediaContainer {
         display: none;
     }
@@ -69,7 +103,7 @@
 
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 800px) {
     .first {
         align-items: flex-start;
         padding-top: 4px;
