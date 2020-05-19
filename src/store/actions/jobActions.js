@@ -18,13 +18,6 @@ import {
 //     };
 // };
 
-export const addToShoppingList = () => {
-    console.log("redux, addtoshoppinglist")
-    return {
-        type: LOGIN_USER,
-    };
-};
-
 export const reduxAPIFetchJobs = () => {
     console.log("reduxAPIFetchJobs")
     return (dispatch) => {

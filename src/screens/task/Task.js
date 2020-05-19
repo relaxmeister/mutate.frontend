@@ -39,7 +39,8 @@ class Task extends Component {
     formData: formData,
     jobData: undefined,
     realJob: undefined,
-    loading: true
+    loading: true,
+    error: false
   };
 
   componentDidMount() {
@@ -60,24 +61,27 @@ class Task extends Component {
       })
       .then(result => {
         console.log(result);
+
+        //Kopplat till Task
         this.setState({
           jobData: result
         });
 
+        //Kopplat till modalform
         const newFormData = {
           ...this.state.formData,
           job: result.role
         };
-        this.setState({
-          formData: newFormData
-        });
-        this.setState({ loading: false });
+        // this.setState({
+        //   formData: newFormData
+        // });
+        this.setState({ loading: false, formData: newFormData });
         console.log(this.state.formData);
         return result;
       })
       .catch(err => {
-        this.setState({ loading: false });
-        console.log("ERROR HEHEHHEHE")
+        this.setState({ loading: false, error: true });
+        console.log("error:" + err);
       });
 
     /*const id = parseInt(this.props.match.params.id, 10);
@@ -97,7 +101,27 @@ class Task extends Component {
   }
 
   renderContent() {
-    if (this.state.loading/* || !this.state.loading*/) {
+    if (this.state.loading /*|| !this.state.loading*/) {
+      return (
+        <>
+          <div className={styles.pageSelection}>
+            <div className={styles.pageSelectionWrapper}>
+              <div className={styles.widthDefault}>
+                <div
+                  className={`${styles.flexHorizontal} ${styles.marginTop200} ${styles.marginBottom200} ${styles.flexHelper}`}
+                >
+                  <LoadingCard />
+                </div>
+                <div
+                  style={{ height: "1px" }}
+                  // pga margin ovan :/
+                ></div>
+              </div>
+            </div>
+          </div>
+        </>
+      );
+    } else if (this.state.error) {
       return (
         <>
           <div className={styles.pageSelection}>
@@ -183,8 +207,13 @@ class Task extends Component {
                     </div>
                   </div>
                   <p className={styles.hiringProcess}>{hiringProcess}</p>
-                  <div onClick={() => this.setState({ modal: true })}>
-                    <div className={styles.backToRecruitButton}>Apply</div>
+                  <div>
+                    <div
+                      onClick={() => this.setState({ modal: true })}
+                      className={styles.backToRecruitButton}
+                    >
+                      Apply
+                    </div>
                   </div>
                 </div>
               </div>

@@ -87,7 +87,7 @@
 
 .jobTextFlex {
     flex-shrink: 1;
-    display: flex;
+    /*display: flex;*/
     flex-direction: column;
 
     width: 100%;
@@ -115,7 +115,7 @@
     height: 40px;
     flex-grow: 0;
     flex-shrink: 0;
-    
+    cursor: pointer;
 
     margin-top: 20px;
     margin-bottom: 100px;

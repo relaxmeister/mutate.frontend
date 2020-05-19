@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { reduxAPIFetchJobs, addToShoppingList } from '../src/store/actions/index';
+import { reduxAPIFetchJobs } from '../src/store/actions/index';
 
 import Header from './components/header/Header';
 import Home from './screens/home/Home';
@@ -19,26 +19,26 @@ class App extends Component {
 
     componentDidMount() {
         console.log("APPMOUNTED!")
-        this.props.addToShoppingList();
+        //this.props.addToShoppingList();
         this.props.reduxAPIFetchJobs();
-        fetch("http://localhost:8080/", {
-            method: "GET",
-            headers: {
-                'Access-Control-Allow-Origin': '*'
-            }
-        }).then(async response => {
-            if (response.status >= 200 && response.status < 300) {
+        // fetch("http://localhost:8080/", {
+        //     method: "GET",
+        //     headers: {
+        //         'Access-Control-Allow-Origin': '*'
+        //     }
+        // }).then(async response => {
+        //     if (response.status >= 200 && response.status < 300) {
 
-                console.log("successjbobobjob!");
-                //console.log(response.json());
-                return response.json();
-            } else {
-                console.log("something went wrong with GETJOBS");
-            }
-        }).then(json => {
-            console.log(json);
-            return json;
-        }).catch(err => err);
+        //         console.log("successjbobobjob!");
+        //         //console.log(response.json());
+        //         return response.json();
+        //     } else {
+        //         console.log("something went wrong with GETJOBS");
+        //     }
+        // }).then(json => {
+        //     console.log(json);d
+        //     return json;
+        // }).catch(err => err);
         //funkar
     }
 
@@ -62,6 +62,5 @@ class App extends Component {
 
 export default connect(null,
     {
-        addToShoppingList,
         reduxAPIFetchJobs
     })(App);
