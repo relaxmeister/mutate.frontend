@@ -8,4 +8,5 @@ const configureStore = () => {
     //se manager-projektet för mer detaljer
 };
 
+
 export default configureStore;

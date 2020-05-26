@@ -75,7 +75,7 @@ class FormItem extends Component {
     render() {
         return (
             <div className={styles.formItem}>
-                <h5 className={styles.formTitle}>
+                <h5 className={this.props.theme === undefined || this.props.theme !== 'dark' ? styles.formTitleLight : styles.formTitleDark}>
                     {this.props.title}
                     {this.maybeRenderRequired()}
                 </h5>

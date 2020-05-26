@@ -1,0 +1,97 @@
+.styleMe {
+    width: 100%;
+    min-height: 100vh;
+    background: lightsalmon;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.overhead {
+    padding-top: 100px;
+}
+
+.jobSection {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.jobContainer {
+    padding: 20px;
+    max-width: 500px;
+    width: 80%;
+    background: white;
+    margin-bottom: 10px;
+}
+
+.jobHeader {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    margin: 0;
+    margin-bottom: 8px;
+}
+
+.flexContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.modifyButton {
+    height: 30px;
+    padding: 10px;
+    border: solid 1px black;
+    display: flex;
+    align-items: center;
+    justify-self: center;
+    cursor: pointer;
+}
+
+.deleteButton {
+    height: 30px;
+    padding: 10px;
+    border: solid 1px black;
+    display: flex;
+    align-items: center;
+    justify-self: center;
+    cursor: pointer;
+}
+
+.applicantHeader {
+    display: flex;
+    justify-content: center;
+}
+
+
+.backToRecruitButton {
+    padding-left: 8px;
+    padding-right: 8px;
+    color: white;
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    flex-grow: 0;
+    flex-shrink: 0;
+    cursor: pointer;
+
+    margin-top: 20px;
+    margin-bottom: 100px;
+
+    -webkit-transition: all .17s ease-out;
+    transition: all .17s ease-out;
+
+    border: 1px solid hsla(0,0%,100%,.3);
+}
+
+.backToRecruitButton:hover {
+    border-color: white;
+    transform: translateY(-2px);
+}

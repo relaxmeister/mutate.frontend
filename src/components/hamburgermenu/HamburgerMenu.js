@@ -70,7 +70,7 @@ class HamburgerMenu extends Component {
             <div className={styles.featureGrid}>
               <Link
                 className={`${styles.button} ${styles.signIn}`}
-                //onClick={() => this.props.pageClick("/download")}
+                onClick={() => this.props.pageClick("/login")}
                 //TODO ny sida med signin zZz
               >
                 SIGN IN

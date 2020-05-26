@@ -8,7 +8,7 @@
 
 
 
-.formItem .formTitle {
+.formItem .formTitleLight {
     font-size: 14px;
     color: #36393f;
     margin-bottom: 8px;
@@ -27,7 +27,31 @@
     /*margin-bottom: 0;*/
 }
 
-.formItem .formTitle .isRequired {
+.formItem .formTitleDark {
+    font-size: 14px;
+    color: white;
+    margin-bottom: 8px;
+
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 500;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    cursor: default; /* annars blir det över-text cursor */
+    margin-top: 0;
+    /*margin-bottom: 0;*/
+}
+
+.formItem .formTitleLight .isRequired {
+    color: #f04747;
+    padding-left: 4px;
+}
+
+.formItem .formTitleDark .isRequired {
     color: #f04747;
     padding-left: 4px;
 }

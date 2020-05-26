@@ -1,7 +1,6 @@
 import {
     JOBS_FETCH_SUCCESS,
     JOBS_FETCH_FAIL,
-    LOGIN_USER
 } from './types';
 
 // export const employeeCreate = ({ name, phone, shift }) => {
@@ -34,9 +33,9 @@ export const reduxAPIFetchJobs = () => {
                 console.log("something went wrong with GETJOBS");
             }
         }).then(result => {
-            console.log("json: " + result);
+            console.log("json: ", result);
             dispatch({ type: JOBS_FETCH_SUCCESS, payload: result });
             return result;
-        }).catch(err => console.log("ejjoj: " + err));
+        }).catch(err => console.log("ejjoj: ", err));
     }
 }

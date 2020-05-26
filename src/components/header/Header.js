@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 //import PropTypes from 'prop-types';
-//import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { logoutUser } from "../../store/actions/index";
 
 import styles from "./style.module.css";
 import HeaderMenuTag from "../headermenutag/HeaderMenuTag";
@@ -33,23 +35,56 @@ class Header extends Component {
 
     this.menuClick = this.menuClick.bind(this);
     this.changePage = this.changePage.bind(this);
+    console.log("header ", this.props.user);
   }
 
   renderAccountAccess() {
-    return (
-      <>
+    //BIND DENNA COMPONENT TILL REDUXUSER
+    if (this.props.auth.user === null || this.props.auth.user === undefined) {
+      return (
+        <>
+          <div className={styles.button}>
+            <span className={styles.buttonText}>
+              <Link to={"/login"} className={styles.a_link}>
+                Sign in
+              </Link>
+            </span>
+          </div>
+          <div className={styles.button}>
+            <span className={styles.buttonText}>
+              <Link to={"/register"} className={styles.a_link_reg}>
+                Get started
+              </Link>
+            </span>
+          </div>
+        </>
+      );
+    } else {
+      //inloggad
+      return (
         <div className={styles.button}>
           <span className={styles.buttonText}>
-            <a className={styles.a_link}>Sign in</a>
+            <div
+              onClick={() => {
+                this.props.logoutUser();
+                this.props.history.push("/login");
+              }}
+              className={styles.a_link}
+            >
+              Log out
+            </div>
           </span>
         </div>
-        <div className={styles.button}>
-          <span className={styles.buttonText}>
-            <a className={styles.a_link_reg}>Get started</a>
-          </span>
-        </div>
-      </>
-    );
+      );
+    }
+  }
+
+  maybeRenderApplications() {
+    if (this.props.auth.user !== null && this.props.auth.user !== undefined) {
+      return this.props.auth.user.claims === "admin" ? (
+        <HeaderMenuTag album={{ namn: "Appl", link: "/applications" }} />
+      ) : null;
+    }
   }
 
   renderSocialmedia() {
@@ -123,6 +158,13 @@ class Header extends Component {
                 }}
               />
               {this.renderPages()}
+              {this.maybeRenderApplications()}
+              {/*this.props.auth.user !== null &&
+              this.props.auth.user.claims === "admin" ? (
+                <HeaderMenuTag
+                  album={{ namn: "Appl", link: "/applications" }}
+                />
+              ) : null*/}
             </div>
             <div className={styles.headerRightContent}>
               <div className={styles.socialmediaContainer}>
@@ -151,4 +193,18 @@ Header.propTypes = {
   // propname: PropTypes.object.isRequired
 };
 
-export default Header;
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+// export default connect(mapStateToProps, {})(Recruit);
+
+// const mapStateToProps = ({ auth }) => {
+//   const { user, error, loading } = auth;
+//   return {  user, error, loading };
+// };
+
+export default connect(mapStateToProps, {
+  logoutUser
+})(Header);
+//export default Header;

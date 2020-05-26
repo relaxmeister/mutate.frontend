@@ -28,6 +28,8 @@ const formData = {
   phone: "",
   city: "",
   job: "",
+  role: "",
+  jobSpecifics: {},
   reasoning: "",
   cv: "", // denna blir klurig
   pb: ""
@@ -70,7 +72,8 @@ class Task extends Component {
         //Kopplat till modalform
         const newFormData = {
           ...this.state.formData,
-          job: result.role
+          role: result.role,
+          job: result, //TODO SE OM DETTA FUNKADE
         };
         // this.setState({
         //   formData: newFormData
