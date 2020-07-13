@@ -104,9 +104,105 @@
     flex-direction: column; /* de har sannolikt auto-CSS där en commmand ger flera */
 }
 
+.formSection .flexVertical .formRow {
+    /* flexHorizontal */
+
+    width: 100%;
+    padding-bottom: 20px;
+
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+}
+
+.formSection .flexVertical .formRow > div:first-child {
+    margin-right: 10px;
+}
+
+.formSection .flexVertical .formRow > div:last-child {
+    margin-left: 10px;
+}
+
+.formSection .flexVertical .formRow h5:last-child {
+    margin-left: 0px;
+}
+
+.flexHorizontal {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+}
+
+.flexJustifyCenter {
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
 
 
+.formRowSingleItem {
+    width: 100%;
+    padding-bottom: 20px;
+}
 
+
+.submitBtnWrapper {
+    background: #7289da;
+    color: #fff;
+    font-size: 14px;
+    padding: 0 20px;
+    border-radius: 3px;
+    height: 50px;
+
+    position: relative;
+    align-self: center;
+    display: inline-block;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    border: none;
+    font-family: Whitney,Helvetica Neue,Helvetica,Arial,sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    text-align: center;
+    -webkit-transition: all .17s ease-out;
+    transition: all .17s ease-out;
+
+
+}
+
+.submitBtnWrapper:hover {
+    transform: translateY(-1px);
+    -webkit-box-shadow: 0 0 3px 0 rgba(114,137,218,.5);
+    box-shadow: 0 0 13px 0 rgba(114,137,218,.5);
+}
+
+.submitButton {
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    height: 100%;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+
+    -webkit-transition: all .17s ease-out;
+    transition: all .17s ease-out;
+}
 
 .buttonClose {
     position: absolute;

@@ -143,7 +143,6 @@ class Recruit extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    placeholder: state.placeholder2,
     job: state.job,
 });
 

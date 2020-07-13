@@ -36,6 +36,7 @@ class Header extends Component {
     this.menuClick = this.menuClick.bind(this);
     this.changePage = this.changePage.bind(this);
     console.log("header ", this.props.user);
+    console.log("header location", this.props.history);
   }
 
   renderAccountAccess() {
@@ -95,12 +96,6 @@ class Header extends Component {
     return pages.map(e => <HeaderMenuTag key={e.namn} album={e} />);
   }
 
-  renderModal() {
-    if (this.state.hamburgermenu === true) {
-      return <HamburgerMenu menuToggle={this.menuClick} />;
-    } else return null;
-  }
-
   menuClick() {
     //Maninupelar DOM direkt, funkar men inte optimalt, men vad är då alt?
     var move = document.getElementById("sidemenu");
@@ -143,49 +138,61 @@ class Header extends Component {
   }
 
   render() {
-    return (
-      <div className={styles.absolut}>
-        <div className={styles.first}>
-          <div className={styles.second}>
-            <div className={styles.third}>
-              <img
-                src={logo}
-                className={styles.logo}
-                alt="logo"
-                onClick={() => {
-                  console.log("clicked!!");
-                  this.props.history.push("/");
-                }}
-              />
-              {this.renderPages()}
-              {this.maybeRenderApplications()}
-              {/*this.props.auth.user !== null &&
+    if (
+      this.props.history.location.pathname === "/login" ||
+      this.props.history.location.pathname === "/register"
+    ) {
+      return null;
+    } else {
+      return (
+        <div className={styles.absolut}>
+          <div className={styles.first}>
+            <div className={styles.second}>
+              <div className={styles.third}>
+                <img
+                  src={logo}
+                  className={styles.logo}
+                  alt="logo"
+                  onClick={() => {
+                    console.log("clicked!!");
+                    this.props.history.push("/");
+                  }}
+                />
+                {this.renderPages()}
+                {this.maybeRenderApplications()}
+                {/*this.props.auth.user !== null &&
               this.props.auth.user.claims === "admin" ? (
                 <HeaderMenuTag
                   album={{ namn: "Appl", link: "/applications" }}
                 />
               ) : null*/}
-            </div>
-            <div className={styles.headerRightContent}>
-              <div className={styles.socialmediaContainer}>
-                {this.renderAccountAccess()}
               </div>
-              <img
-                src={menuToggle}
-                className={styles.menuToggle}
-                alt="hamburgermenu"
-                onClick={this.menuClick}
-              />
+              <div className={styles.headerRightContent}>
+                <div className={styles.socialmediaContainer}>
+                  {this.renderAccountAccess()}
+                </div>
+                <img
+                  src={menuToggle}
+                  className={styles.menuToggle}
+                  alt="hamburgermenu"
+                  onClick={this.menuClick}
+                />
+              </div>
             </div>
           </div>
+          {/*this.renderModal()*/}
+          <HamburgerMenu
+            menuToggle={this.menuClick}
+            pageClick={this.changePage}
+            logOut={() => {
+              this.props.logoutUser();
+              this.changePage("/login");
+            }}
+            auth={this.props.auth}
+          />
         </div>
-        {/*this.renderModal()*/}
-        <HamburgerMenu
-          menuToggle={this.menuClick}
-          pageClick={this.changePage}
-        />
-      </div>
-    );
+      );
+    }
   }
 }
 

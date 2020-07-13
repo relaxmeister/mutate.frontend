@@ -21,6 +21,14 @@ const RegisterForm = props => {
   const [usernameError, setUsernameError] = useState(undefined);
   const [passwordError, setPasswordError] = useState(undefined);
 
+  useEffect(() => {
+    var move = document.getElementById("dropdownRegister");
+    move.style.transition = "all .6s ease";
+    move.style.transform = "translateY(0%)";
+    move.style.opacity = 1;
+    //move.style.scale = 1;
+  }, []);
+
   const onSubmit = () => {
     const newFormData = {
       // Rimligt att nollställa alla värden vid submit
@@ -149,7 +157,7 @@ const RegisterForm = props => {
   }, [props.auth, props.history]);
 
   return (
-    <form className={styles.loginForm}>
+    <form id={"dropdownRegister"} className={styles.loginForm}>
       <div className={styles.centeringWrapper}>
         <div className={styles.headerPrimary}>Create account</div>
         <div className={styles.formSection}>

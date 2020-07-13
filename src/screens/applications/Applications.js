@@ -1,21 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import { deleteJob } from "../../store/actions";
 
 import styles from "./style.module.css";
 
 import JobForm from "../../components/jobform/JobForm";
 
 const defaultData = {
-  name: "",
-  lastname: "",
-  email: "",
-  phone: [],
-  city: [],
-  job: [],
-  reasoning: [],
-  cv: [], // denna blir klurig
-  pb: []
+  role: "",
+  field: "",
+  jobDescription: [],
+  doing: [],
+  shouldHave: [],
+  bonus: []
 };
 /**
  * Visa list på alla applications med impl av CRUD
@@ -26,6 +24,7 @@ const Applications = props => {
   const [jobList, setjobList] = useState([]);
   const [formData, setFormData] = useState(defaultData);
   const [modal, setModal] = useState(false);
+  const [modifyOrCreate, setModifyOrCreate] = useState(undefined);
 
   useEffect(() => {
     console.log(jobList);
@@ -46,6 +45,7 @@ const Applications = props => {
       .then(async response => {
         if (response.status >= 200 && response.status < 300) {
           return response.json();
+
         } else {
           console.log("something went wrong with GETAPPLICATIONS");
         }
@@ -81,10 +81,20 @@ const Applications = props => {
                 {e.id}: {e.role}
               </p>
               <div className={styles.flexContainer}>
-                <div className={styles.modifyButton}>Modify</div>
+                <div
+                  onClick={() => {
+                    setFormData(e);
+                    setModifyOrCreate("modify")
+                    console.log(e);
+                    setModal(true);
+                  }}
+                  className={styles.modifyButton}
+                >
+                  Modify
+                </div>
                 <div
                   className={styles.deleteButton}
-                  onClick={() => onDeleteJob(e.id)}
+                  onClick={() => props.deleteJob(e.id)/*onDeleteJob(e.id)*/}
                 >
                   X
                 </div>
@@ -101,9 +111,9 @@ const Applications = props => {
 
     return appl
       .sort((a, b) => a.id - b.id)
-      .map(app => {
+      .map((app, index) => {
         return (
-          <div className={styles.jobContainer}>
+          <div className={styles.jobContainer} key={index}>
             <div className={styles.applicantHeader}>APPLICANT id {app.id}</div>
             <div className={styles.flexContainer}>
               <div className={styles.infoContainer}>
@@ -140,7 +150,8 @@ const Applications = props => {
     })
       .then(res => {
         console.log("SUCCESSFULLY DELETED");
-        window.location.reload(true);
+        setjobList(jobList.filter(e => e.id !== id))
+        //window.location.reload(true);
       })
       .catch(err => {
         //this.setState({ loading: false, error: true });
@@ -157,8 +168,12 @@ const Applications = props => {
       }
     })
       .then(res => {
-        console.log("SUCCESSFULLY DELETED");
-        window.location.reload(true);
+        console.log("SUCCESSFULLY DELETED"); // KÖRS ÄVEN VID 500
+        //applications.filter(e => e.id === id)
+        setApplications(applications.filter(e => e.id !== id))
+        console.log("appl", applications);
+        console.log("applfilter", applications.filter(e => e.id !== id));
+        //window.location.reload(true);
       })
       .catch(err => {
         //this.setState({ loading: false, error: true });
@@ -173,7 +188,18 @@ const Applications = props => {
   };
 
   const modalCloseHandler = () => {
-    setFormData(false);
+    setModal(false);
+    document.body.style.overflow = "visible";
+    setModifyOrCreate(undefined);
+    const newFormData = {
+      role: "",
+      field: "",
+      jobDescription: [],
+      doing: [],
+      shouldHave: [],
+      bonus: []
+    };
+    setFormData(newFormData);
   };
 
   const maybeRenderForm = () => {
@@ -183,6 +209,7 @@ const Applications = props => {
           onModalClose={modalCloseHandler}
           onFormChange={form => setFormData(form)}
           formData={formData}
+          action={modifyOrCreate}
         />
       );
     }
@@ -192,14 +219,14 @@ const Applications = props => {
     <div className={styles.styleMe}>
       <div className={styles.overhead}>CURRENTLY OPEN POSITIONS</div>
       {renderJobs()}
-      <div className={styles.modifyButton} onClick={onOpenJobFactory}>
-        Create New Job
-      </div>
       <div
-        onClick={() => setModal(true)}
+        onClick={() => {
+          setModifyOrCreate("create")
+          setModal(true);
+        }}
         className={styles.backToRecruitButton}
       >
-        Apply
+        Create New Job
       </div>
       <div>{maybeRenderForm()}</div>
     </div>
@@ -210,4 +237,6 @@ const mapStateToProps = state => ({
   job: state.job
 });
 
-export default connect(mapStateToProps, {})(Applications);
+export default connect(mapStateToProps, {
+  deleteJob
+})(Applications);

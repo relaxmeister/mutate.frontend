@@ -21,6 +21,14 @@ const LoginForm = props => {
 
   console.log("login", props.auth.user);
 
+  useEffect(() => {
+    var move = document.getElementById("dropdownLogin");
+    move.style.transition = "all .6s ease";
+    move.style.transform = "translateY(0%)";
+    move.style.opacity = 1;
+    //move.style.scale = 1;
+  }, []);
+
   const onSubmit = () => {
     const newFormData = {
       // Rimligt att nollställa alla värden vid submit
@@ -119,58 +127,54 @@ const LoginForm = props => {
   }, [props.auth, props.history]);
 
   return (
-    <div className={styles.loginContainer}>
-      <form className={styles.loginForm}>
-        <div className={styles.mainLoginContainer}>
-          <div className={styles.headerPrimary}>Welcome back!</div>
-          <div className={styles.headerSecondary}>Log in to your account</div>
-          <div className={styles.formSection}>
-            <div className={styles.marginBottom20}>
-              <FormItem
-                text={user.email}
-                title={"E-mail"}
-                onChange={onEmailChange}
-                placeholder={"abc123@abc.abc"}
-                type={"input"}
-                inputType={"email"}
-                required={true}
-                error={emailError}
-                theme={"dark"}
-              />
-            </div>
-            <div className={styles.marginBottom20}>
-              <FormItem
-                text={user.password}
-                title={"Password"}
-                onChange={onPasswordChange}
-                placeholder={"secret123"}
-                type={"input"}
-                inputType={"text"}
-                required={true}
-                error={passwordError}
-                theme={"dark"}
-              />
-            </div>
-            <button
-              onClick={validateForm}
-              className={styles.submitBtnWrapper}
-              //type="Logga in"
-              //form="form1"
-            >
-              <div className={styles.submitText}>Log in</div>
-            </button>
-            <div className={styles.buttomButtonContainer}>
-              <span className={styles.needAccount}>
-                Do you need an account?
-              </span>
-              <Link to="/register" className={styles.linkButton}>
-                <span className={styles.linkText}>Register</span>
-              </Link>
-            </div>
+    <form id={"dropdownLogin"} className={styles.loginForm}>
+      <div className={styles.mainLoginContainer}>
+        <div className={styles.headerPrimary}>Welcome back!</div>
+        <div className={styles.headerSecondary}>Log in to your account</div>
+        <div className={styles.formSection}>
+          <div className={styles.marginBottom20}>
+            <FormItem
+              text={user.email}
+              title={"E-mail"}
+              onChange={onEmailChange}
+              placeholder={"abc123@abc.abc"}
+              type={"input"}
+              inputType={"email"}
+              required={true}
+              error={emailError}
+              theme={"dark"}
+            />
+          </div>
+          <div className={styles.marginBottom20}>
+            <FormItem
+              text={user.password}
+              title={"Password"}
+              onChange={onPasswordChange}
+              placeholder={"secret123"}
+              type={"input"}
+              inputType={"text"}
+              required={true}
+              error={passwordError}
+              theme={"dark"}
+            />
+          </div>
+          <button
+            onClick={validateForm}
+            className={styles.submitBtnWrapper}
+            //type="Logga in"
+            //form="form1"
+          >
+            <div className={styles.submitText}>Log in</div>
+          </button>
+          <div className={styles.buttomButtonContainer}>
+            <span className={styles.needAccount}>Do you need an account?</span>
+            <Link to="/register" className={styles.linkButton}>
+              <span className={styles.linkText}>Register</span>
+            </Link>
           </div>
         </div>
-      </form>
-    </div>
+      </div>
+    </form>
   );
 };
 

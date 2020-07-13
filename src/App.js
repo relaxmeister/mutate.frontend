@@ -1,7 +1,13 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, withRouter } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  withRouter,
+  Switch
+} from "react-router-dom";
 import { connect } from "react-redux";
 import { reduxAPIFetchJobs } from "../src/store/actions/index";
+import WithAuthRoute from "./config/WithAuthRoute";
 
 import Header from "./components/header/Header";
 import Home from "./screens/home/Home";
@@ -11,35 +17,17 @@ import About from "./screens/about/About";
 import Task from "./screens/task/Task";
 import Applications from "./screens/applications/Applications";
 import Auth from "./screens/auth/Auth";
+import NotFound from "./screens/notfound/NotFound";
 
 const HeaderHOCComponent = withRouter(props => <Header {...props} />);
 const RecruitHOCComponent = withRouter(props => <Recruit {...props} />);
 const AuthHOCComponent = withRouter(props => <Auth {...props} />);
+const HomeHOCComponent = withRouter(props => <Home {...props} />);
 
 class App extends Component {
   componentDidMount() {
     console.log("APPMOUNTED!");
-    //this.props.addToShoppingList();
     this.props.reduxAPIFetchJobs();
-    // fetch("http://localhost:8080/", {
-    //     method: "GET",
-    //     headers: {
-    //         'Access-Control-Allow-Origin': '*'
-    //     }
-    // }).then(async response => {
-    //     if (response.status >= 200 && response.status < 300) {
-
-    //         console.log("successjbobobjob!");
-    //         //console.log(response.json());
-    //         return response.json();
-    //     } else {
-    //         console.log("something went wrong with GETJOBS");
-    //     }
-    // }).then(json => {
-    //     console.log(json);d
-    //     return json;
-    // }).catch(err => err);
-    //funkar
   }
 
   render() {
@@ -47,23 +35,28 @@ class App extends Component {
       <div>
         <Router>
           <HeaderHOCComponent />
-          <Route path={"/"} exact component={Home} />
-          <Route path={"/download"} exact component={Download} />
-          <Route path={"/about"} exact component={About} />
-          <Route exact path={"/recruit"} component={RecruitHOCComponent} />
-          <Route path={"/recruit/:id"} component={Task} />
-          <Route
-            path={["/login", "/register"]}
-            exact
-            component={AuthHOCComponent}
-          />
-          <Route path={"/applications"} exact component={Applications} />
+          <Switch>
+            <Route path={"/"} exact component={HomeHOCComponent} />
+            <Route path={"/download"} exact component={Download} />
+            <Route path={"/about"} exact component={About} />
+            <Route exact path={"/recruit"} component={RecruitHOCComponent} />
+            <Route path={"/recruit/:id"} component={Task} />
+            <Route
+              path={["/login", "/register"]}
+              exact
+              component={AuthHOCComponent}
+            />
+            <WithAuthRoute exact path={"/applications"} acceptClaims={"admin"}>
+              <Applications />
+            </WithAuthRoute>
+
+            <Route path="*" component={NotFound} /> {/** Alt att redirecta tbax till förstasidan */}
+          </Switch>
         </Router>
       </div>
     );
   }
 }
-
 
 export default connect(null, {
   reduxAPIFetchJobs

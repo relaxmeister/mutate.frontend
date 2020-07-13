@@ -45,6 +45,7 @@ class FormItem extends Component {
                     placeholder={this.props.placeholder}
                     onChange={this.onChange.bind(this)}
                     type={this.props.inputType}
+                    ref={this.textInput}
                 />
             );
         } if (this.props.type === 'button') {

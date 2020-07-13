@@ -1,15 +1,9 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
 
 import styles from "./style.module.css";
 
-import TagListItem from "../taglistitem/TagListItem";
-
 import logo from "../../assets/icons/mutate-logoBLACK.png";
 import close from "../../assets/icons/close.png";
-
-var move = document.getElementById("sidemenu");
 
 const navigationList = [
   { namn: "Download your copy of Mutate", link: "/download" },
@@ -18,32 +12,24 @@ const navigationList = [
 ];
 
 class HamburgerMenu extends Component {
-  //const { namn, link } = album;
-
-  componentWillMount() {
-    //document.body.style.overflow = "hidden"; // tar bort scroll
-    //move.style.marginLeft = "500px";
-  }
-
-  componentWillUnmount() {
-    //document.body.style.overflow = "visible";
-    //move.style.marginLeft = "200px";
-  }
-
   renderListItems() {
     return navigationList.map(e => (
-      <il key={e.namn} className={styles.listItem}>
-        <Link
+      <li key={e.namn} className={styles.listItem}>
+        <div
           className={styles.linkFeatures}
-          onClick={() => this.props.pageClick(e.link)} /*to={e.link}*/
+          onClick={() => this.props.pageClick(e.link)}
         >
           {e.namn}
-        </Link>
-      </il>
+        </div>
+      </li>
     ));
   }
 
   render() {
+    console.log(
+      "bool",
+      this.props.auth.user !== null && this.props.auth.user !== undefined
+    );
     return (
       <div id={"sidemenu"} className={styles.modalWrapper}>
         <div className={styles.modalContainer}>
@@ -68,19 +54,29 @@ class HamburgerMenu extends Component {
           </div>
           <div className={styles.bottomContainer}>
             <div className={styles.featureGrid}>
-              <Link
-                className={`${styles.button} ${styles.signIn}`}
-                onClick={() => this.props.pageClick("/login")}
-                //TODO ny sida med signin zZz
-              >
-                SIGN IN
-              </Link>
-              <Link
+              {this.props.auth.user !== null &&
+              this.props.auth.user !== undefined ? (
+                <div
+                  className={`${styles.button} ${styles.signIn}`}
+                  onClick={() => this.props.logOut()}
+                >
+                  LOG OUT
+                </div>
+              ) : (
+                <div
+                  className={`${styles.button} ${styles.signIn}`}
+                  onClick={() => this.props.pageClick("/login")}
+                >
+                  SIGN IN
+                </div>
+              )}
+
+              <div
                 className={`${styles.button} ${styles.get_app}`}
                 onClick={() => this.props.pageClick("/download")}
               >
                 Download zeh stuff
-              </Link>
+              </div>
             </div>
           </div>
         </div>
@@ -88,9 +84,5 @@ class HamburgerMenu extends Component {
     );
   }
 }
-
-HamburgerMenu.propTypes = {
-  album: PropTypes.object.isRequired
-};
 
 export default HamburgerMenu;
