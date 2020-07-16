@@ -42,7 +42,10 @@ export const reduxAPIFetchJobs = () => {
         dispatch({ type: JOBS_FETCH_SUCCESS, payload: result });
         return result;
       })
-      .catch(err => console.log("ejjoj: ", err));
+      .catch(err => {
+        console.log("ejjoj: ", err);
+        dispatch({ type: JOBS_FETCH_FAIL });
+      });
   };
 };
 

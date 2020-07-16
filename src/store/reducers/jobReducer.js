@@ -22,7 +22,7 @@ export default (state = INITIAL_STATE, action) => {
         loading: false
       };
     case JOBS_FETCH_FAIL:
-      return { ...state, error: "Jobfetching Failed." };
+      return { ...state, error: "Jobfetching Failed.", loading: false };
     case JOBS_DELETE:
       return {
         ...state,

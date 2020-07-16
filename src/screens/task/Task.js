@@ -133,7 +133,12 @@ class Task extends Component {
                 <div
                   className={`${styles.flexHorizontal} ${styles.marginTop200} ${styles.marginBottom200} ${styles.flexHelper}`}
                 >
-                  <ErrorCard />
+                  <ErrorCard 
+                    header="Oj då!" 
+                    text="Vi kunde inte hitta jobbet du sökte, men det finns många andra på vår" 
+                    link="/recruit" 
+                    linkText="jobbsida" 
+                  />
                 </div>
                 <div
                   style={{ height: "1px" }}

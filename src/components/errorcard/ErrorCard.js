@@ -4,24 +4,27 @@ import { Link } from "react-router-dom";
 
 import styles from "./style.module.css";
 
-import pic from "../../assets/icons/ai.png"
+import pic from "../../assets/icons/ai.png";
 
-const ErrorCard = props => {
+const ErrorCard = ({ header, text, link, linkText, moreText }) => {
   return (
     <div className={styles.errorCardWrapper}>
       <div className={`${styles.errorCard} ${styles.card}`}>
         <div className={`${styles.errorFlexWrapper}`}>
           <div>
-            <h4 className={styles.textHeader}>Oj då!</h4>
+            <h4 className={styles.textHeader}>{header}</h4>
             <div className={styles.textContent}>
-              Vi kunde inte hitta jobbet du sökte, men det finns många andra på
-              vår{" "}
-              <Link className={styles.link} to={"/recruit"}>
-                jobbsida
-              </Link>
+              {text}
+              {" "}
+              {link ? <Link className={styles.link} to={link}>
+                {linkText}
+              </Link>: null}
+              {moreText}
             </div>
           </div>
-          <div><img src={pic} alt="ai" /></div>
+          <div>
+            <img src={pic} alt="ai" />
+          </div>
         </div>
       </div>
     </div>
