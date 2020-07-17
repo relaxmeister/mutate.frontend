@@ -42,16 +42,31 @@ class Recruit extends Component {
   componentDidUpdate() {}
 
   renderOpenPositions() {
-    console.log("joblist: " + this.props.job.jobs);
-    if (this.state.checkedBox === "All Openings") {
-      return this.props.job.jobs
-        .sort((a, b) => a.id - b.id)
-        .map(e => <JobOpeningCard key={e.id} album={e} />);
+    console.log("joblist: ", this.props.job.jobs);
+    if (this.props.job.jobs.length > 0) {
+      if (this.state.checkedBox === "All Openings") {
+        return this.props.job.jobs
+          .sort((a, b) => a.id - b.id)
+          .map(e => <JobOpeningCard key={e.id} album={e} />);
+      } else {
+        return this.props.job.jobs
+          .sort((a, b) => a.id - b.id)
+          .filter(e => e.field === this.state.checkedBox)
+          .map(e => <JobOpeningCard key={e.id} album={e} />);
+      }
     } else {
-      return this.props.job.jobs
-        .sort((a, b) => a.id - b.id)
-        .filter(e => e.field === this.state.checkedBox)
-        .map(e => <JobOpeningCard key={e.id} album={e} />);
+      return (
+        <div className={styles.widthLoading}>
+          <div
+            className={`${styles.flexHorizontal} ${styles.marginTop200} ${styles.marginBottom200} ${styles.flexHelper}`}
+          >
+            <ErrorCard
+              header="Tyvärr!"
+              text="Just nu finns det inga lediga jobb, men kika gärna tillbaka vid något annat tillfälle!"
+            />
+          </div>
+        </div>
+      );
     }
   }
 
@@ -72,9 +87,9 @@ class Recruit extends Component {
           <div
             className={`${styles.flexHorizontal} ${styles.marginTop200} ${styles.marginBottom200} ${styles.flexHelper}`}
           >
-            <ErrorCard 
-            header="Oj då!" 
-            text="Vi lyckades inte få fram några jobb just nu, försök gärna igen senare" 
+            <ErrorCard
+              header="Oj då!"
+              text="Vi lyckades inte få fram några jobb just nu, försök gärna igen senare"
             />
           </div>
         </div>
