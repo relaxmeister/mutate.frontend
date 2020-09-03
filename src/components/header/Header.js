@@ -138,14 +138,9 @@ class Header extends Component {
   }
 
   render() {
-    if (
-      this.props.history.location.pathname === "/login" ||
-      this.props.history.location.pathname === "/register"
-    ) {
-      return null;
-    } else {
-      return (
-        <div className={styles.absolut}>
+    return (
+      <div className={styles.absolut}>
+        <div className={styles.wrapper}>
           <div className={styles.first}>
             <div className={styles.second}>
               <div className={styles.third}>
@@ -180,19 +175,19 @@ class Header extends Component {
               </div>
             </div>
           </div>
-          {/*this.renderModal()*/}
-          <HamburgerMenu
-            menuToggle={this.menuClick}
-            pageClick={this.changePage}
-            logOut={() => {
-              this.props.logoutUser();
-              this.changePage("/login");
-            }}
-            auth={this.props.auth}
-          />
         </div>
-      );
-    }
+        {/*this.renderModal()*/}
+        <HamburgerMenu
+          menuToggle={this.menuClick}
+          pageClick={this.changePage}
+          logOut={() => {
+            this.props.logoutUser();
+            this.changePage("/login");
+          }}
+          auth={this.props.auth}
+        />
+      </div>
+    );
   }
 }
 

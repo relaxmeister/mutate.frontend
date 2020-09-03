@@ -1,0 +1,256 @@
+.footer {
+  padding-top: 80px;
+  padding-bottom: 64px;
+  color: #fff;
+  background-color: #23272a;
+}
+
+.row {
+  width: 100%;
+  max-width: 1260px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 0 24px;
+  margin: 0 auto;
+}
+
+.space {
+  display: flex;
+  justify-content: space-between;
+}
+
+.infoBox {
+  margin-bottom: 56px;
+}
+
+.infoTitle {
+  color: #7289da;
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 120%;
+}
+
+.language {
+  margin-top: 24px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.languageContainer {
+  position: relative;
+}
+
+.dropDown {
+  position: absolute;
+  background-color: #fff;
+  border-radius: 8px;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+
+  bottom: 100%;
+  margin-bottom: 8px;
+}
+
+.dropDownContent {
+  max-height: 320px;
+  min-width: 150px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.dropDownItem {
+  padding: 8px;
+}
+
+.dropDownItem:hover {
+  background-color: rgba(79, 84, 92, 0.16);
+  border-radius: 4px;
+}
+
+.dropDownClickable {
+  cursor: pointer;
+}
+
+.itemContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.selectorContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.flag {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
+.textExtraSmall {
+  color: #fff;
+  font-size: 14px;
+  line-height: 18px;
+}
+
+.arrowIcon {
+  padding-bottom: 18px;
+  /*height: 10px;
+  width: 12px;*/
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+
+.social {
+  margin-top: 24px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.socialLink {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.infoSocialImg {
+  width: 24px;
+  height: 24px;
+}
+.marginLeft {
+  margin-left: 24px;
+}
+
+.navBox {
+  width: 65.85365854%;
+  margin-top: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 20px;
+}
+
+.listHeader {
+  padding-top: 8px;
+  color: #7289da;
+}
+
+.navLink {
+  color: inherit;
+  margin-top: 8px;
+  display: block;
+  cursor: pointer;
+}
+
+.navLink:hover {
+  text-decoration: underline;
+}
+
+.textSmall {
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.routeSection {
+  margin-bottom: 40px;
+  flex: 1 1 auto;
+}
+
+.separator {
+  background-color: #7289da;
+  width: 100%;
+  height: 1px;
+  margin-bottom: 32px;
+}
+
+.linkContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.linkLogo {
+  height: 34px;
+}
+
+.accountButton {
+  background-color: #7289da;
+  color: #fff;
+  border-radius: 40px;
+  font-size: 14px;
+  padding: 7px 16px;
+  line-height: 24px;
+  cursor: pointer;
+  font-weight: 500;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-transition-property: background-color, color, -webkit-box-shadow;
+  transition-property: background-color, color, -webkit-box-shadow;
+  transition-property: background-color, color, box-shadow;
+  transition-property: background-color, color, box-shadow, -webkit-box-shadow;
+  -webkit-transition-duration: 0.2s;
+  transition-duration: 0.2s;
+  -webkit-transition-timing-function: ease-in-out;
+  transition-timing-function: ease-in-out;
+}
+
+.accountButton:hover {
+  background-color: #8ea1e1;
+  -webkit-box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.dropdownLanguageName {
+  color: #23272a;
+}
+
+@media screen and (max-width: 1024px) {
+  .navBox {
+    grid-template-columns: repeat(2, 2fr);
+    width: 50%;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .row {
+    padding: 0 40px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .col {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  .navBox {
+    width: 100%;
+  }
+}

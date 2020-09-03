@@ -1,23 +1,385 @@
 .homeContainer {
-    padding-top: 72px;
-    background-color: green;
-}
-
-.second {
-    background: purple;
-
-    width: 100%;
-    height: 100%;
+  background-color: green;
+  overflow: hidden;
 }
 
 .button1 {
-    padding-top: 300px;
-    margin: 50px;
-    width: 50px;
-    height: 50px;
-    background-color: black;
+  padding-top: 300px;
+  margin: 50px;
+  width: 50px;
+  height: 50px;
+  background-color: black;
 }
 
 .buttonfive {
-    margin-top: 200px;
+  margin-top: 200px;
+}
+
+.introContainer {
+  width: 100%;
+  box-sizing: border-box;
+  background: linear-gradient(0deg, #7196ff -0.45%, #2a5ee8 71.18%);
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  position: relative;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.heroContainer {
+  z-index: 1;
+  max-width: 1260px;
+  display: flex;
+  flex-direction: column;
+  padding-top: 192px;
+  padding-bottom: 120px;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.introBody {
+  width: 100%;
+}
+
+.introText {
+  color: white;
+}
+
+.introHeader {
+  font-weight: 700;
+  line-height: 120%;
+  font-size: 48px;
+}
+
+.introSubtitle {
+  margin-top: 24px;
+}
+
+.mediumText {
+  font-size: 20px;
+  line-height: 32px;
+}
+
+.tinyText {
+  max-width: 566px;
+  font-size: 12px;
+  line-height: 14px;
+}
+
+.buttonContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-top: 24px;
+}
+
+.buttonLarge {
+  border-radius: 28px;
+  font-size: 20px;
+  padding: 16px 32px;
+  background-color: #fff;
+  color: #23272a;
+  cursor: pointer;
+  -webkit-transition-property: background-color, color, -webkit-box-shadow;
+  transition-property: background-color, color, -webkit-box-shadow;
+  transition-property: background-color, color, box-shadow;
+  transition-property: background-color, color, box-shadow, -webkit-box-shadow;
+  -webkit-transition-duration: 0.2s;
+  transition-duration: 0.2s;
+  -webkit-transition-timing-function: ease-in-out;
+  transition-timing-function: ease-in-out;
+}
+
+.buttonLarge:hover {
+  color: #7289da;
+  -webkit-box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.downloadIcon {
+  height: 16px;
+  width: 16px;
+  margin-right: 8px;
+}
+
+.imageContainer {
+  position: relative;
+  z-index: 0;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.image {
+  max-width: 950px;
+  max-height: 950px;
+}
+
+.foregroundRight {
+  position: absolute;
+  bottom: 0;
+  display: none;
+}
+
+.foregroundLeft {
+  display: block;
+  height: 368px;
+  -webkit-transform: translateX(-200px);
+  transform: translateX(-200px);
+}
+
+.infoWrapper {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.greyBackground {
+  background-color: #f6f6f6;
+}
+
+.whiteBackground {
+  background-color: #fff;
+}
+
+.infoContainer {
+  max-width: 1260px;
+  width: 100%;
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-top: 56px;
+  padding-bottom: 56px;
+}
+
+.load {
+  opacity: 0;
+  -webkit-transform: translateY(50px);
+  transform: translateY(50px);
+  -webkit-transition: opacity 0.6s 0.1s, -webkit-transform 0.6s ease;
+  transition: opacity 0.6s 0.1s, -webkit-transform 0.6s ease;
+  transition: opacity 0.6s 0.1s, transform 0.6s ease;
+  transition: opacity 0.6s 0.1s, transform 0.6s ease,
+    -webkit-transform 0.6s ease;
+}
+
+.visible {
+  opacity: 1;
+  -webkit-transform: translateY(0);
+  transform: translateY(0);
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.featureImage {
+  width: 100%;
+  max-width: 678px;
+  max-height: 440px;
+  object-fit: cover;
+  margin-top: 24px;
+}
+
+.description {
+  width: 100%;
+}
+
+.imageLeft .description {
+}
+
+.imageBottom .description {
+  width: 100%;
+}
+
+.featureHeader {
+  font-weight: 700;
+  line-height: 120%;
+  font-size: 40px;
+}
+
+.breakContainer {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 40px 0px 0px 100vw;
+  border-color: transparent transparent transparent #f6f6f6;
+  background-color: #fff;
+}
+
+.invertedBreak {
+  -webkit-transform: matrix(1, 0, 0, -1, 0, 0);
+  transform: matrix(1, 0, 0, -1, 0, 0);
+}
+
+.center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.formContainer {
+  max-width: 566px;
+}
+
+.notifyText {
+  margin-top: 20px;
+}
+
+.marginBottom {
+  margin-bottom: 20px;
+}
+
+.footer {
+  height: 600px;
+  width: 100%;
+  background-color: grey;
+}
+
+@media screen and (min-width: 768px) {
+  .foregroundRight {
+    display: block;
+    bottom: 0;
+    left: 50%;
+    margin-left: 25px;
+  }
+
+  .foregroundLeft {
+    display: none;
+  }
+  .imageContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+  }
+  .introText {
+    margin-bottom: 8px;
+  }
+  .introHeader {
+    font-size: 56px;
+  }
+  .introSubtitle {
+    margin-top: 40px;
+  }
+  .introBody {
+    width: 65%;
+  }
+
+  .heroContainer {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
+  .introContainer {
+    
+  }
+  .infoContainer {
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+  .featureImage {
+    width: 46%;
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+  .description {
+    width: 46%;
+  }
+  .featureHeader {
+    font-size: 48px;
+  }
+  .imageRight .featureImage {
+    order: 2;
+  }
+
+  .imageRight .description {
+    order: 1;
+  }
+  .imageBottom .description {
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .description {
+    margin-top: 20px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .heroContainer {
+    align-items: center;
+  }
+  .foregroundRight {
+    display: block;
+    bottom: 0;
+    left: 50%;
+    margin-left: 368px;
+  }
+
+  .foregroundLeft {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    display: block;
+    height: auto;
+    margin-left: -1300px;
+    -webkit-transform: none;
+    transform: none;
+  }
+  .buttonContainer {
+    justify-content: center;
+  }
+  .introBody {
+    text-align: center;
+    width: 62%;
+  }
+  .introContainer {
+    justify-content: center;
+  }
+  .infoContainer {
+    padding-top: 130px;
+    padding-bottom: 130px;
+  }
+  .featureImage {
+    width: 58%;
+  }
+
+  .description {
+    width: 33%;
+  }
+
+  .imageBottom .description {
+    width: 80%;
+  }
 }

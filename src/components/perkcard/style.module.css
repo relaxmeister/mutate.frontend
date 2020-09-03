@@ -1,0 +1,41 @@
+.perkWrapper {
+  padding-left: 30px;
+  padding-right: 30px;
+  flex-basis: 33.333333333%;
+}
+
+.perkContainer {
+    padding-bottom: 1.5rem !important;
+    padding-top: 1.5rem !important;
+}
+
+.icon {
+  margin-bottom: 16px;
+  width: 40px;
+  height: 40px;
+}
+
+.header {
+  margin-bottom: 16px;
+  font-size: 24px;
+  line-height: 140%;
+}
+
+.text {
+  font-size: 20px;
+  line-height: 32px;
+}
+
+
+
+@media only screen and (max-width: 1024px) {
+  .perkWrapper {
+    flex-basis: 50%;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+    .perkWrapper {
+      flex-basis: 100%;
+    }
+  }

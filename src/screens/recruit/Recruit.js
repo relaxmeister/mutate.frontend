@@ -5,6 +5,7 @@ import { getJobsOpening } from "../../services/api/ApiService";
 
 import styles from "./style.module.css";
 
+import Perks from "../../components/perks/Perks";
 import LoadingCard from "../../components/loadingcard/LoadingCard";
 import ErrorCard from "../../components/errorcard/ErrorCard";
 import JobOpeningCard from "../../components/jobopeningcard/JobOpeningCard";
@@ -225,9 +226,7 @@ class Recruit extends Component {
         <div className={styles.jobsContainer}>
           <div className={styles.selectionWrapper}>{this.renderJobs()}</div>
         </div>
-        <div>
-          Potentiell Sektion 3 med Perks? Ev något om flytt till stockholm?
-        </div>
+        <Perks />
       </div>
     );
   }

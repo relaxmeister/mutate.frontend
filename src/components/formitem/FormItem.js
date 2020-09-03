@@ -46,6 +46,7 @@ class FormItem extends Component {
                     onChange={this.onChange.bind(this)}
                     type={this.props.inputType}
                     ref={this.textInput}
+                    aria-label={this.props.label ? this.props.label : ""}
                 />
             );
         } if (this.props.type === 'button') {
@@ -60,7 +61,7 @@ class FormItem extends Component {
             );
         }
         return (
-            <input className={`${styles.inputField} ${this.props.error === "" || this.props.error !== undefined ? styles.inputFieldError : undefined}`}
+            <input className={`${styles.inputField} ${this.props.error === "" || this.props.error !== undefined ? styles.inputFieldError : undefined}` }
             /* ${((this.props.error === "" || this.props.error !== undefined) ? styles.inputFieldError : null)}`}*/
             /* className={`${styles.formRowSingleItem} ${styles.flexJustifyCenter} ${styles.flexHorizontal}`} */
                 value={this.props.text}
@@ -68,6 +69,7 @@ class FormItem extends Component {
                 type={this.props.inputType !== undefined ? this.props.inputType : "number"}
                 required={this.props.required}
                 placeholder={this.props.placeholder}
+                aria-label={this.props.label ? this.props.label : ""}
                 ref={this.textInput}
             />
         );
@@ -76,10 +78,10 @@ class FormItem extends Component {
     render() {
         return (
             <div className={styles.formItem}>
-                <h5 className={this.props.theme === undefined || this.props.theme !== 'dark' ? styles.formTitleLight : styles.formTitleDark}>
+                <h1 className={this.props.theme === undefined || this.props.theme !== 'dark' ? styles.formTitleLight : styles.formTitleDark}>
                     {this.props.title}
                     {this.maybeRenderRequired()}
-                </h5>
+                </h1>
                 <div className={styles.flexVertical}>
                     {this.InputOrTextArea()}
                     {this.maybeRenderError()}
@@ -91,6 +93,7 @@ class FormItem extends Component {
 
 FormItem.propTypes = {
     title: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
     type: PropTypes.oneOf(['input', 'area', 'button']),
     inputType: PropTypes.string.isRequired,
     required: PropTypes.bool.isRequired,

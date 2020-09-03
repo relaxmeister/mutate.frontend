@@ -7,6 +7,8 @@ import styles from "./style.module.css";
 
 import JobForm from "../../components/jobform/JobForm";
 
+import trash from "../../assets/icons/trash.png";
+
 const defaultData = {
   role: "",
   field: "",
@@ -17,6 +19,7 @@ const defaultData = {
 };
 /**
  * Visa list på alla applications med impl av CRUD
+ * https://www.jobboard.io/2018/05/new-feature-all-applicants-list/
  */
 const Applications = props => {
   const [selectedJob, setSelectedJob] = useState(undefined);
@@ -45,7 +48,6 @@ const Applications = props => {
       .then(async response => {
         if (response.status >= 200 && response.status < 300) {
           return response.json();
-
         } else {
           console.log("something went wrong with GETAPPLICATIONS");
         }
@@ -76,6 +78,7 @@ const Applications = props => {
       .map((e, index) => {
         return (
           <div key={index} className={styles.jobSection}>
+            {applications.map(x => console.log("xID", x.id))}
             <div className={styles.jobContainer}>
               <p className={styles.jobHeader}>
                 {e.id}: {e.role}
@@ -84,7 +87,7 @@ const Applications = props => {
                 <div
                   onClick={() => {
                     setFormData(e);
-                    setModifyOrCreate("modify")
+                    setModifyOrCreate("modify");
                     console.log(e);
                     setModal(true);
                   }}
@@ -94,11 +97,15 @@ const Applications = props => {
                 </div>
                 <div
                   className={styles.deleteButton}
-                  onClick={() => props.deleteJob(e.id)/*onDeleteJob(e.id)*/}
+                  onClick={() => props.deleteJob(e.id) /*onDeleteJob(e.id)*/}
                 >
-                  X
+                  <img className={styles.trashcan} src={trash} alt="delet" />
                 </div>
               </div>
+            </div>
+            <div className={styles.applicantBar}>
+              <div className={styles.boldText}>Total Applicants {applications.filter(x => x.job.id === e.id).length}</div>
+              <div className={styles.boldText}>Actions</div>
             </div>
             {renderApplications(e.id)}
           </div>
@@ -132,7 +139,7 @@ const Applications = props => {
                 className={styles.deleteButton}
                 onClick={() => onDeleteApplication(app.id)}
               >
-                X
+                <img className={styles.trashcan} src={trash} alt="delet" />
               </div>
             </div>
           </div>
@@ -150,7 +157,7 @@ const Applications = props => {
     })
       .then(res => {
         console.log("SUCCESSFULLY DELETED");
-        setjobList(jobList.filter(e => e.id !== id))
+        setjobList(jobList.filter(e => e.id !== id));
         //window.location.reload(true);
       })
       .catch(err => {
@@ -170,9 +177,12 @@ const Applications = props => {
       .then(res => {
         console.log("SUCCESSFULLY DELETED"); // KÖRS ÄVEN VID 500
         //applications.filter(e => e.id === id)
-        setApplications(applications.filter(e => e.id !== id))
+        setApplications(applications.filter(e => e.id !== id));
         console.log("appl", applications);
-        console.log("applfilter", applications.filter(e => e.id !== id));
+        console.log(
+          "applfilter",
+          applications.filter(e => e.id !== id)
+        );
         //window.location.reload(true);
       })
       .catch(err => {
@@ -221,7 +231,7 @@ const Applications = props => {
       {renderJobs()}
       <div
         onClick={() => {
-          setModifyOrCreate("create")
+          setModifyOrCreate("create");
           setModal(true);
         }}
         className={styles.backToRecruitButton}

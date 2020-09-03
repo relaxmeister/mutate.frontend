@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import ApplicationForm from "../../components/applicationform/ApplicationForm.js";
 import LoadingCard from "../../components/loadingcard/LoadingCard";
 import ErrorCard from "../../components/errorcard/ErrorCard";
+import Perks from "../../components/perks/Perks";
 
 import styles from "./style.module.css"; // webpacks config gör att detta är sättet att köra på
 
@@ -227,6 +228,7 @@ class Task extends Component {
               </div>
             </div>
           </div>
+          <Perks />
           <div>{this.maybeRenderForm()}</div>
         </>
       );
