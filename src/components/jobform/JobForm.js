@@ -56,10 +56,10 @@ const JobForm = props => {
     };
 
     if (props.action === "modify") {
-      props.modifyJob(props.formData, props.job.jobs);
+      props.modifyJob(props.formData, props.job.jobs, props.auth.user.jwt);
       props.onFormChange(newFormData); //resettar nu oavsett lyckad API
     } else if (props.action === "create") {
-      props.addJob(props.formData); // verkar funka bra
+      props.addJob(props.formData, props.auth.user.jwt); // verkar funka bra
       props.onFormChange(newFormData); // resettar nu oavsett lyckad API
     } else {
       console.log("inget hände, no action");
@@ -283,7 +283,8 @@ const JobForm = props => {
 };
 
 const mapStateToProps = state => ({
-  job: state.job
+  job: state.job,
+  auth: state.auth,
 });
 
 export default connect(mapStateToProps, {

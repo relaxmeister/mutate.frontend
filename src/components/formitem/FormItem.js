@@ -92,12 +92,12 @@ class FormItem extends Component {
 }
 
 FormItem.propTypes = {
-    title: PropTypes.string.isRequired,
+    //title: PropTypes.string.isRequired, måste kunna få vara undefined dvs ingen
     label: PropTypes.string.isRequired,
-    type: PropTypes.oneOf(['input', 'area', 'button']),
+    //type: PropTypes.oneOf(['input', 'area', 'button']),
     inputType: PropTypes.string.isRequired,
     required: PropTypes.bool.isRequired,
-    error: PropTypes.string.isRequired,
+    //error: PropTypes.string.isRequired,
     onChange: function() {
         if (((this.props.type === 'input' || (this.props.type === 'area') && typeof(this.props.onChange) !== 'function'))) {
             return new Error('Please provide a onChange function!');

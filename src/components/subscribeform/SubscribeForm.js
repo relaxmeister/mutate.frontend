@@ -76,7 +76,7 @@ const SubscribeForm = props => {
         onChange={onEmailChange}
         placeholder={"Enter email"}
         type={"input"}
-        inputType={"email"}
+        inputType={"text"}
         required={false}
         error={emailError}
       />

@@ -18,6 +18,7 @@ const Download = () => {
   const [platform, setPlatform] = useState("Platform");
 
   useEffect(() => {
+    //Används på home och downloadsidan, kanske bör göras heltäckande?
     var OSName = "Unknown";
     if (window.navigator.userAgent.indexOf("Windows NT 10.0") !== -1)
       OSName = "Windows 10";

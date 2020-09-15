@@ -4,6 +4,7 @@ import {
   JOBS_DELETE,
   JOBS_ADD,
   JOBS_MODIFY,
+  LOGOUT_USER
 } from "./types";
 
 // export const employeeCreate = ({ name, phone, shift }) => {
@@ -49,13 +50,20 @@ export const reduxAPIFetchJobs = () => {
   };
 };
 
-export const deleteJob = id => {
+export const deleteJob = (id, jwtToken) => {
   //API DELETE JOB
   return dispatch => {
     fetch(`http://localhost:8080/${id}`, {
       method: "DELETE",
       headers: {
-        "Access-Control-Allow-Origin": "*"
+        "Access-Control-Allow-Origin": "*",
+        Authorization: `Bearer ${jwtToken}`,
+        "Access-Control-Allow-Credentials": true,
+        "Access-Control-Allow-Headers":
+          "Content-Type, Authorization, Access-Control-Allow-Headers",
+        "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+        "Access-Control-Expose-Headers": "Authorization",
+        "Content-Type": "application/json"
       }
     })
       .then(async response => {
@@ -75,7 +83,7 @@ export const deleteJob = id => {
   };
 };
 
-export const addJob = formData => {
+export const addJob = (formData, jwtToken) => {
   return dispatch => {
     fetch("http://localhost:8080/applications", {
       method: "POST",
@@ -83,6 +91,12 @@ export const addJob = formData => {
       headers: {
         "Access-Control-Allow-Origin": "*", //, Ändringen i backend "@CrossOrigin(origins="*")" fundamental
         Accept: "application/json",
+        Authorization: `Bearer ${jwtToken}`,
+        "Access-Control-Allow-Credentials": true,
+        "Access-Control-Allow-Headers":
+          "Content-Type, Authorization, Access-Control-Allow-Headers",
+        "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+        "Access-Control-Expose-Headers": "Authorization",
         "Content-Type": "application/json"
       }
     })
@@ -92,6 +106,14 @@ export const addJob = formData => {
           //props.onFormChange(newFormData); // skickar vidare nollställningen
           console.log("CLEAR FORM");
           return response.json();
+        } else if (response.status === 403) {
+          //fungerande lösning om man vill åt en loggout vid felaktig auth/jwt
+          //https://stackoverflow.com/questions/27726066/jwt-refresh-token-flow
+          dispatch({ type: LOGOUT_USER });
+        } else {
+          var error = new Error(response.statusText || response.status);
+          error.response = response;
+          return Promise.reject(error);
         }
       })
       .then(json => {
@@ -103,13 +125,19 @@ export const addJob = formData => {
   };
 };
 
-export const modifyJob = (formData, jobList) => {
+export const modifyJob = (formData, jobList, jwtToken) => {
   return dispatch => {
     fetch(`http://localhost:8080/applications/${formData.id}`, {
       method: "PUT",
       body: JSON.stringify(formData),
       headers: {
         "Access-Control-Allow-Origin": "*", //, Ändringen i backend "@CrossOrigin(origins="*")" fundamental
+        Authorization: `Bearer ${jwtToken}`,
+        "Access-Control-Allow-Credentials": true,
+        "Access-Control-Allow-Headers":
+          "Content-Type, Authorization, Access-Control-Allow-Headers",
+        "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+        "Access-Control-Expose-Headers": "Authorization",
         Accept: "application/json",
         "Content-Type": "application/json"
       }
@@ -124,7 +152,7 @@ export const modifyJob = (formData, jobList) => {
       })
       .then(json => {
         console.log(json);
-        addOrModify(json, jobList, dispatch)
+        addOrModify(json, jobList, dispatch);
         return json;
       })
       .catch(err => console.log(err));
@@ -133,9 +161,9 @@ export const modifyJob = (formData, jobList) => {
 
 const addOrModify = (item, list, dispatch) => {
   /**
-   * The some() method tests whether at least one element in the array passes the test implemented by the provided function. It returns a Boolean value. 
+   * The some() method tests whether at least one element in the array passes the test implemented by the provided function. It returns a Boolean value.
    */
   const found = list.some(el => el.id === item.id);
   if (!found) dispatch({ type: JOBS_ADD, payload: item });
   else dispatch({ type: JOBS_MODIFY, payload: item });
-}
+};

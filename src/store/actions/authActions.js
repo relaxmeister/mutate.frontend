@@ -16,9 +16,9 @@ export const logoutUser = () => {
   }
 };
 
-export const loginUser = ( email, password ) => {
+export const loginUser = (data/* email, password*/ ) => {
 
-  return dispatch => {
+  /*return dispatch => {
     console.log("LOLASDOASLDOL");
     dispatch({ type: LOGIN_USER });
 
@@ -32,6 +32,39 @@ export const loginUser = ( email, password ) => {
         if (response.status >= 200 && response.status < 300) {
           console.log("REDUX LOGIN");
           return response.json();
+        }
+      })
+      .then(result => {
+        console.log("LOGIN", result);
+        dispatch({ type: LOGIN_USER_SUCCESS, payload: result }); // verkar köra den oavsett 404
+      })
+      .catch(err => {
+        console.log("err", err);
+        dispatch({ type: LOGIN_USER_FAIL });
+      });
+  };*/
+  return dispatch => {
+    console.log("LOLASDOASLDOL");
+    dispatch({ type: LOGIN_USER });
+
+    fetch("http://localhost:8080/authenticate", {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        //"Authorization": `Bearer: ${"HEJ"}`
+      }
+    })
+      .then(async response => {
+        if (response.status >= 200 && response.status < 300) {
+          console.log("REDUX LOGIN");
+          return response.json();
+        } else {
+          var error = new Error(response.statusText || response.status)
+          error.response = response
+          return Promise.reject(error)
         }
       })
       .then(result => {

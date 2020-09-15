@@ -103,23 +103,23 @@ const Footer = props => {
   };
 
   const renderProductRoutes = () => {
-    return product.map(e => {
-      return <div className={styles.navLink}>{e}</div>;
+    return product.map((e, index) => {
+      return <div key={index} className={styles.navLink}>{e}</div>;
     });
   };
   const renderCompanyRoutes = () => {
-    return companies.map(e => {
-      return <div className={styles.navLink}>{e}</div>;
+    return companies.map((e, index) => {
+      return <div key={index} className={styles.navLink}>{e}</div>;
     });
   };
   const renderResourcesRoutes = () => {
-    return resources.map(e => {
-      return <div className={styles.navLink}>{e}</div>;
+    return resources.map((e, index) => {
+      return <div key={index} className={styles.navLink}>{e}</div>;
     });
   };
   const renderPolicyRoutes = () => {
-    return policies.map(e => {
-      return <div className={styles.navLink}>{e}</div>;
+    return policies.map((e, index) => {
+      return <div key={index} className={styles.navLink}>{e}</div>;
     });
   };
 
@@ -154,9 +154,9 @@ const Footer = props => {
       return (
         <div className={styles.dropDown} ref={node}>
           <div className={styles.dropDownContent}>
-            {languages.map(e => {
+            {languages.map((e, index) => {
               return (
-                <div className={styles.dropDownItem}>
+                <div className={styles.dropDownItem} key={index}>
                   <div
                     className={styles.dropDownClickable}
                     onClick={() => setLanguageAndClose(e)}

@@ -31,6 +31,7 @@ const Applications = props => {
 
   useEffect(() => {
     console.log(jobList);
+    console.log(props.auth.user.jwt);
   }, [jobList]);
 
   useEffect(() => {
@@ -41,21 +42,32 @@ const Applications = props => {
     // API HÄMTA ALLA APPLIC
     fetch(`http://localhost:8080/recruit/applications`, {
       method: "GET",
+      //withCredentials: true,
+      //credentials: "include",
       headers: {
-        "Access-Control-Allow-Origin": "*"
+        "Access-Control-Allow-Origin": "*",
+        Authorization: `Bearer ${props.auth.user.jwt}`,
+        "Access-Control-Allow-Credentials": true,
+        "Access-Control-Allow-Headers":
+          "Content-Type, Authorization, Access-Control-Allow-Headers",
+        "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+        "Access-Control-Expose-Headers": "Authorization",
+        "Content-Type": "application/json"
       }
     })
       .then(async response => {
         if (response.status >= 200 && response.status < 300) {
           return response.json();
         } else {
-          console.log("something went wrong with GETAPPLICATIONS");
+          var error = new Error(response.statusText || response.status)
+          error.response = response
+          return Promise.reject(error)
         }
       })
       .then(result => {
         console.log("appplications hämtade: ", result);
 
-        setApplications(result);
+        setApplications(applications.concat(result));
 
         //this.setState({ loading: false, formData: newFormData });
         //console.log(applications);
@@ -78,7 +90,7 @@ const Applications = props => {
       .map((e, index) => {
         return (
           <div key={index} className={styles.jobSection}>
-            {applications.map(x => console.log("xID", x.id))}
+            {/*applications.map(x => console.log("xID", x.id))*/}
             <div className={styles.jobContainer}>
               <p className={styles.jobHeader}>
                 {e.id}: {e.role}
@@ -97,14 +109,17 @@ const Applications = props => {
                 </div>
                 <div
                   className={styles.deleteButton}
-                  onClick={() => props.deleteJob(e.id) /*onDeleteJob(e.id)*/}
+                  onClick={() => props.deleteJob(e.id, props.auth.user.jwt) /*onDeleteJob(e.id)*/}
                 >
                   <img className={styles.trashcan} src={trash} alt="delet" />
                 </div>
               </div>
             </div>
             <div className={styles.applicantBar}>
-              <div className={styles.boldText}>Total Applicants {applications.filter(x => x.job.id === e.id).length}</div>
+              <div className={styles.boldText}>
+                Total Applicants{" "}
+                {applications.filter(x => x.job.id === e.id).length}
+              </div>
               <div className={styles.boldText}>Actions</div>
             </div>
             {renderApplications(e.id)}
@@ -152,7 +167,14 @@ const Applications = props => {
     fetch(`http://localhost:8080/${id}`, {
       method: "DELETE",
       headers: {
-        "Access-Control-Allow-Origin": "*"
+        "Access-Control-Allow-Origin": "*",
+        Authorization: `Bearer ${props.auth.user.jwt}`,
+        "Access-Control-Allow-Credentials": true,
+        "Access-Control-Allow-Headers":
+          "Content-Type, Authorization, Access-Control-Allow-Headers",
+        "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+        "Access-Control-Expose-Headers": "Authorization",
+        "Content-Type": "application/json"
       }
     })
       .then(res => {
@@ -171,7 +193,14 @@ const Applications = props => {
     fetch(`http://localhost:8080/recruit/applications/${id}`, {
       method: "DELETE",
       headers: {
-        "Access-Control-Allow-Origin": "*"
+        "Access-Control-Allow-Origin": "*",
+        Authorization: `Bearer ${props.auth.user.jwt}`,
+        "Access-Control-Allow-Credentials": true,
+        "Access-Control-Allow-Headers":
+          "Content-Type, Authorization, Access-Control-Allow-Headers",
+        "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+        "Access-Control-Expose-Headers": "Authorization",
+        "Content-Type": "application/json"
       }
     })
       .then(res => {
@@ -244,7 +273,8 @@ const Applications = props => {
 };
 
 const mapStateToProps = state => ({
-  job: state.job
+  job: state.job,
+  auth: state.auth
 });
 
 export default connect(mapStateToProps, {

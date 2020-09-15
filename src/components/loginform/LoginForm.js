@@ -10,13 +10,13 @@ import styles from "./style.module.css";
 const emailValidator = new EmailValidator();
 
 const defaultUser = {
-  email: "",
+  username: "",
   password: ""
 };
 
 const LoginForm = props => {
   const [user, setUser] = useState(defaultUser);
-  const [emailError, setEmailError] = useState(undefined);
+  const [usernameError, setUsernameError] = useState(undefined);
   const [passwordError, setPasswordError] = useState(undefined);
 
   console.log("login", props.auth.user);
@@ -33,12 +33,12 @@ const LoginForm = props => {
     const newFormData = {
       // Rimligt att nollställa alla värden vid submit
       ...user, //frågan är om man ens är kvar på sidan?? eller redirect?
-      email: "",
+      username: "",
       password: ""
     };
 
     //API CALL - LOG IN ACCOUNT
-    props.loginUser(user.email, user.password);
+    props.loginUser(user);
 
     console.log("COMPLETED");
     setUser(newFormData);
@@ -47,9 +47,9 @@ const LoginForm = props => {
   const validateForm = event => {
     event.preventDefault();
 
-    validateEmail();
+    validateUsername();
     validatePassword();
-    if (validateEmail() && validatePassword()) {
+    if (validateUsername() && validatePassword()) {
       onSubmit();
       //return true;
     }
@@ -57,21 +57,17 @@ const LoginForm = props => {
     //return false; // CALL SUBMIT
   };
 
-  const validateEmail = () => {
+  const validateUsername = () => {
     let res = true;
-    const newEmail = user.email;
-
-    const regexCheck = emailValidator.validate(newEmail);
-
-    //console.log("regexCheck: " + regexCheck);
+    const newUsername = user.username;
 
     let errorMsg = undefined;
-    if (!regexCheck) {
+    if (newUsername === "") {
       res = false;
-      errorMsg = "Hey, your email is invalid, fix it plz";
+      errorMsg = "Dont forget about me :(";
     }
 
-    setEmailError(errorMsg);
+    setUsernameError(errorMsg);
 
     return res;
   };
@@ -91,21 +87,11 @@ const LoginForm = props => {
     return res;
   };
 
-  const onEmailChange = event => {
+  const onUsernameChange = event => {
     const newFormData = {
       ...user,
-      email: event.target.value
+      username: event.target.value
     };
-    // validator discord har en väldigt märklig implementation
-    if (emailError !== undefined) {
-      // => vi har ett uttalat error
-      const regexCheck = emailValidator.validate(event.target.value);
-      if (regexCheck) {
-        // if true, användaren har skrivit korrekt/rättat feleet
-        setEmailError(undefined); // error fixat
-      }
-      //
-    }
 
     setUser(newFormData);
   };
@@ -134,15 +120,16 @@ const LoginForm = props => {
         <div className={styles.formSection}>
           <div className={styles.marginBottom20}>
             <FormItem
-              text={user.email}
-              title={"E-mail"}
-              onChange={onEmailChange}
-              placeholder={"abc123@abc.abc"}
+              text={user.username}
+              title={"Username"}
+              onChange={onUsernameChange}
+              placeholder={"coolguy99"}
               type={"input"}
-              inputType={"email"}
+              inputType={"text"}
               required={true}
-              error={emailError}
+              error={usernameError}
               theme={"dark"}
+              label={"username"}
             />
           </div>
           <div className={styles.marginBottom20}>
@@ -156,6 +143,7 @@ const LoginForm = props => {
               required={true}
               error={passwordError}
               theme={"dark"}
+              label={"password"}
             />
           </div>
           <button

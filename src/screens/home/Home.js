@@ -24,6 +24,29 @@ const Home = props => {
   const [showFirst, setShowFirst] = useState(false);
   const [showSecond, setShowSecond] = useState(false);
   const [showThird, setShowThird] = useState(false);
+  const [platform, setPlatform] = useState("Platform");
+
+  useEffect(() => {
+    //Används på home och downloadsidan, kanske bör göras heltäckande?
+    var OSName = "Unknown";
+    if (window.navigator.userAgent.indexOf("Windows NT 10.0") !== -1)
+      OSName = "Windows 10";
+    if (window.navigator.userAgent.indexOf("Windows NT 6.2") !== -1)
+      OSName = "Windows 8";
+    if (window.navigator.userAgent.indexOf("Windows NT 6.1") !== -1)
+      OSName = "Windows 7";
+    if (window.navigator.userAgent.indexOf("Windows NT 6.0") !== -1)
+      OSName = "Windows Vista";
+    if (window.navigator.userAgent.indexOf("Windows NT 5.1") !== -1)
+      OSName = "Windows XP";
+    if (window.navigator.userAgent.indexOf("Windows NT 5.0") !== -1)
+      OSName = "Windows 2000";
+    if (window.navigator.userAgent.indexOf("Mac") !== -1) OSName = "Mac/iOS";
+    if (window.navigator.userAgent.indexOf("X11") !== -1) OSName = "UNIX";
+    if (window.navigator.userAgent.indexOf("Linux") !== -1) OSName = "Linux";
+
+    setPlatform(OSName);
+  }, []);
 
   //window.scrollTo(0, 0);
 
@@ -96,7 +119,13 @@ const Home = props => {
               className={styles.buttonContainer}
               onClick={e => console.log(bodyRect)}
             >
-              <a className={`${styles.buttonLarge} ${styles.buttonContainer}`}>
+              <a
+                className={`${styles.buttonLarge} ${styles.buttonContainer}`}
+                href={`//localhost:8080/download?platform=${platform}`}
+                //href=""
+                //download="//localhost:8080/download?platform=windoes"
+                alt="download mutate"
+              >
                 <img
                   className={styles.downloadIcon}
                   src={download}
@@ -113,7 +142,7 @@ const Home = props => {
               "https://www.discord.com/assets/e92fcc9ab6e63c1a17e954af347a1f1d.svg"
             }
             className={`${styles.foregroundLeft} ${styles.image}`}
-            alt={true}
+            alt={"true"}
           />
           <img
             src={

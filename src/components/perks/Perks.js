@@ -64,7 +64,7 @@ const Perks = props => {
         <div className={styles.header}>Top-tier perks and benefits:</div>
         <div className={styles.perksWrapper}>
           {array.map(e => {
-            return <PerkCard perk={e} />;
+            return <PerkCard key={e.header} perk={e} />;
           })}
         </div>
       </div>
